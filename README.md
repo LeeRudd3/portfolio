@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, I'm Lee Rudd</h1>
 <h3 align="center">A passionate Senior QA Engineer</h3>
 
-- 🔭 I’m currently working on **Node.js and React Project**
+- 🔭 I’m currently working on **Node.js and React Project** to learn more on web development and to demonstrate my automation capabilities with Cypress, Jest, and Jasmine automation tests.
 
 - 📄 Know about my experiences [with my Resume in PDF Format](https://drive.google.com/file/d/1MAn3Spc-UIz0H1s2hp1Sr3XTWs1xYs5-/view?usp=sharing)
 
