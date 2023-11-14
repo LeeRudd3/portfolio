@@ -37,8 +37,8 @@ export default function SearchListing({ setTableData }) {
                 onChange={handleSearchChagne}
                 placeholder=""
                 data-testid="search"
-            /><button onClick={handleAction} className="button">Search</button>{clearButtonVisible && (
-                <button className="button" onClick={handleClear}>Clear</button>
+            /><button onClick={handleAction} className="button" data-testid="searchbtn">Search</button>{clearButtonVisible && (
+                <button className="button" onClick={handleClear} data-testid="clearbtn">Clear</button>
               )}</p>
             
         </div>

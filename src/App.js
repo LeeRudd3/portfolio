@@ -12,6 +12,10 @@ import {
 import HomePage from './Home.js';
 import ListingPage from './Listing.js';
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*")
+}) 
+
 function Table({ jsonData }) {
   return (
     <div>

@@ -155,6 +155,7 @@ export default function CreateNewListing({ onClose, showCreateListing, updateTab
               handleInputChange={handleInputBedroomChange} 
               validate={validateBedroom}
               error="Bedrooms must be a number" />
+              
             <TextField title="Enter Listing Bathrooms"
               placeHolder="Enter # of Bathrooms"
               name="listingBathrooms"

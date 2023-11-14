@@ -76,7 +76,7 @@ const Home = () => {
     <div>
       <h1>Listings</h1>
       <SearchListing setTableData={setTableData} />
-      <table>
+      <table id='listingtable'>
         <thead>
           <tr>
             <th></th>
@@ -97,7 +97,7 @@ const Home = () => {
                 />
               </td>
               <td onClick={() => handleItemClick(item)}>
-                <p className="link-like">{item.name}</p>
+                <p className="link-like" itemname={item.name}>{item.name}</p>
               </td>
               <td name='summary'>{item.summary}</td>
               <td name='bedrooms'>{item.bedrooms}</td>

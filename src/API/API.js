@@ -1,8 +1,10 @@
-class API {
+const config = require('../config.json');
 
+class API {
+    
     constructor() {
     }
-      
+    
     add(number1, number2) {
         return number1 + number2;
     }
@@ -69,7 +71,7 @@ class API {
                 ids: data
             }
 
-            returnJSON = await fetch('/listings', {  
+            returnJSON = await fetch(`/listings`, {  
 
             method: 'DELETE', 
             headers: {
@@ -93,7 +95,7 @@ class API {
                 ids: data
             }
 
-            returnJSON = await fetch('/listings/name', {  
+            returnJSON = await fetch(`/listings/name`, {  
 
             method: 'DELETE', 
             headers: {
@@ -114,7 +116,7 @@ class API {
         let id;
         
         try {
-            await fetch('/listing', {  // Enter your IP address here
+            await fetch(`/listing`, {  // Enter your IP address here
         
             method: 'POST', 
             headers: {

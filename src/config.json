@@ -1,0 +1,6 @@
+{
+  "apiServer": {
+    "address": "localhost",
+    "port": 3001
+  }
+}
