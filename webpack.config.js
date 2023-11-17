@@ -7,6 +7,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    allowedHosts: 'all',
+    compress: true,
+    disableHostCheck: true,
   }
 }
