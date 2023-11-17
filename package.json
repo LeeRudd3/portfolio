@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "babel src -g lib",
+    "build": "npm install && npm run build && babel src -g lib",
     "test": "jest",
     "eject": "react-scripts eject"
   },
