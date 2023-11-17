@@ -7,6 +7,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    allowedHosts: ['all'],
+    compress: true,
+    inline: true,
+    port: '8080',
+    allowedHosts: [
+      '.onrender.com'
+    ]
   }
 }
