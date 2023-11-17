@@ -21,7 +21,7 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://leeruddportfolioapi.azurewebsites.net/",
+  "proxy": "https://leeruddportfolioapi.onrender.com/",
   "eslintConfig": {
     "extends": [
       "react-app",
