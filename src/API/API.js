@@ -10,7 +10,7 @@ class API {
     async search(searchTerm) {
         let findings = "does this change";
         try {
-            await fetch(`/search?search=${searchTerm}`)
+            await fetch(`/venues/search/${searchTerm}`)
             .then((res) => res.json())
             .then((jsonData) => {
                 findings = jsonData;
@@ -26,7 +26,7 @@ class API {
     async getListings(limit) {
         let listings;
         try {
-            await fetch(`/listings?limit=${limit}`)
+            await fetch(`/venues?limit=${limit}`)
                 .then((res) => res.json())
                 .then((jsonData) => {
                 listings = jsonData;
@@ -41,8 +41,7 @@ class API {
     async edit(listingID, jsonData) {
         let update;
         try {
-            await fetch(`/listing?id=${listingID}`, {
-
+            await fetch(`/venues/${listingID}`, {
                 method: 'PATCH', 
                 headers: {
                     'Content-Type': 'application/json', // Specify the content type as JSON
@@ -69,7 +68,7 @@ class API {
                 ids: data
             }
 
-            returnJSON = await fetch(`/listings`, {  
+            returnJSON = await fetch(`/venues`, {  
 
             method: 'DELETE', 
             headers: {
@@ -85,42 +84,18 @@ class API {
 
         return returnJSON;
     }
-
-    async deleteViaName(data) {
-        let returnJSON;
-        try {
-            let jsonData = {
-                ids: data
-            }
-
-            returnJSON = await fetch(`/listings/name`, {  
-
-            method: 'DELETE', 
-            headers: {
-                'Content-Type': 'application/json', // Specify the content type as JSON
-            }, 
-            body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
-
-            }).json;
-
-        } catch (error) {
-            console.error('Error in deleting listing', error);
-        }
-
-        return returnJSON;
-    }
-
+    
     async create(jsonData) {
         let id;
         
         try {
-            await fetch(`/listing`, {  // Enter your IP address here
+            await fetch(`/venues`, { 
         
             method: 'POST', 
             headers: {
-                'Content-Type': 'application/json', // Specify the content type as JSON
+                'Content-Type': 'application/json', 
             }, 
-            body: JSON.stringify(jsonData) // body data type must match "Content-Type" header
+            body: JSON.stringify(jsonData) 
         
             }).then((res) => res.json())
             .then((listing) => {
