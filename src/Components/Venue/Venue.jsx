@@ -1,26 +1,46 @@
-import React, { useState, Component } from 'react';
-import './Home.css';
+import React, { useState, useEffect } from 'react';
 import EditListingPopup from "./EditListingPopup";
 import CreateNewListing from './CreateNewListing';
 import DeleteListingPopup from './DeleteListingPopup';
 import SearchListing from './SearchListing';
-import API from './API/API.js';
 
-const Home = () => {
-  const [data, setData] = React.useState([]);
+async function getListings(limit) {
+    let listings;
+    try {
+        await fetch(`/venues`)
+            .then((res) => res.json())
+            .then((jsonData) => {
+            listings = jsonData;
+        });
+    } catch (error) {
+        console.log(`Error getting listings`, error);
+    }
+    console.log(`Listings retrieved is ${typeof listings}`);
+    return listings;
+}
+
+const Venue = ({ showVenue }) => {
+  const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showCreateListing, setShowCreateListing] = React.useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [popupVisible, setPopupVisible] = useState(false);
   const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
-  
-  React.useEffect(() => {
-    getTableData();
+
+  useEffect(() => {
+    async function getData() {
+      const res = await getListings(100);
+     setData(res);
+    }
+    getData();
   }, []);
 
+  if (!showVenue) {
+    return null;
+  }
+
   const getTableData = async() => {
-    const api = new API();
-    setData(await api.getListings(100));
+    setData(await getListings(100));
 
     setDeleteButtonVisible(false);
   }
@@ -70,11 +90,9 @@ const Home = () => {
     setDeleteButtonVisible(false);
   };
 
-  
-
   return (
     <div>
-      <h1>Listings</h1>
+      <h1>Music Venues</h1>
       <SearchListing setTableData={setTableData} />
       <table id='listingtable'>
         <thead>
@@ -130,4 +148,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default Venue;

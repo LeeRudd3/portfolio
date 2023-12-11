@@ -1,46 +1,21 @@
-import React from "react";
-import logo from './logo.svg';
-import './App.css';
-import { render } from "react-dom";
-//import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
-import HomePage from './Home.js';
-import ListingPage from './Listing.js';
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-}) 
-
-function Table({ jsonData }) {
+import React from 'react';
+import Dashboard from './Components/Dashboard';
+import HomePage from './Components/HomePage';
+import Profile from './Components/Profile';
+import {BrowserRouter, Routes,Route } from "react-router-dom";
+const App = () => {
+  
   return (
     <div>
-      <h2>Table Generated from JSON</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Summary</th>
-            <th>Bedrooms</th>
-            <th>Bathrooms</th>
-          </tr>
-        </thead>
-        <tbody>
-          {jsonData.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>{item.summary}</td>
-              <td>{item.bedrooms}</td>
-              <td>{item.bathrooms}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <BrowserRouter> 
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+        <Route path="/Dashboard" element={<Dashboard/>} />
+        <Route path="/Profile" element={<Profile/>} />
+      </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
+export default App

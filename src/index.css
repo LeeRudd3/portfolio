@@ -1,13 +1,143 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  padding: 20px;
+  z-index: 1000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.popup-content {
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: red;
+  font-size: 20px;
+}
+
+.close:hover {
+  font-weight: bold;
+}
+
+.textbox {
+  width: 300px; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc; /* Border for the textbox */
+  border-radius: 10px; /* Adjust the border-radius to control the corner curvature */
+  outline: none; /* Remove the default outline on focus (optional) */
+}
+
+p.link-like {
+  color: #0074d9; /* Link text color (you can change this) */
+  text-decoration: underline; /* Underline text to mimic a link */
+  cursor: pointer; /* Change the cursor to a pointer to indicate interactivity */
+}
+
+p.link-like:hover {
+  /* Style for when the mouse hovers over the element */
+  text-decoration: none; /* Remove underline on hover (optional) */
+  color: #0056b3; /* Change color on hover (optional) */
+}
+
+/* Normal button style */
+.button {
+  background-color: #007bff; /* Blue background color */
+  color: #fff; /* White text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Border for the textbox */
+  border-radius: 10px; /* Adjust the border-radius to control the corner curvature */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  min-width: 100px;
+}
+
+/* Button style when pressed */
+.button:active {
+  background-color: #0056b3; /* Darker blue when pressed */
+  transform: translateY(2px); /* Move the button down slightly */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  height: 20px;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+tr:hover {
+  background-color: #e0e0e0;
+}
+
+.validationText {
+  color: red;
+  background-color: white;
+}
+
+table.add {
+  border-collapse: collapse;
+  width: 600px;
+}
+
+table.add, table.add th, table.add td {
+  border: none;
+}
+
+table.add td {
+  background-color: white;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+}
+
+.left-panel {
+  width: 25%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+.right-panel {
+  flex: 1;
+  padding: 20px;
+}
+
+header {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+main {
+  margin-top: 20px;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import API from './API/API.js';
+import API from '../App/API/API';
 
 function DeleteListingPopup({ data, onClose, getTableData }) {
   const api = new API();
