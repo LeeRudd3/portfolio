@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import API from './API/API.js';
-import TextField from './Components/TextField.js'
+import API from '../App/API/API.js';
+import TextField from '../App/UIComponents/textField.jsx'
 
 export default function CreateNewListing({ onClose, showCreateListing, updateTableData }) {
   const api = new API();

@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import API from './API/API.js';
+import API from '../App/API/API';
 
 export default function SearchListing({ setTableData }) {
     

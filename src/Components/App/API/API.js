@@ -26,15 +26,15 @@ class API {
     async getListings(limit) {
         let listings;
         try {
-            await fetch(`/venues?limit=${limit}`)
+            await fetch(`/venues`)
                 .then((res) => res.json())
                 .then((jsonData) => {
                 listings = jsonData;
             });
         } catch (error) {
-            console.error(`Error getting listings`, error);
+            console.log(`Error getting listings`, error);
         }
-
+        console.log(`Listings retrieved is ${typeof listings}`);
         return listings;
     }
 
@@ -82,6 +82,25 @@ class API {
             console.error('Error in deleting listing', error);
         }
 
+        return returnJSON;
+    }
+
+    async getUserByEmail(email, token) {
+        let returnJSON;
+        try{
+            console.log(`email ${email} and token ${token}`);
+            /*returnJSON = await fetch(`http://localhost:3001/users/byemail/${email}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+                }).then((res) => res.json());*/
+        }
+        catch(error) {
+            console.log('Error in deleting listing', error);
+            returnJSON = null;
+        }
         return returnJSON;
     }
     

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import API from './API/API.js';
-import TextField from './Components/TextField.js'
+import API from '../App/API/API.js';
+import TextField from '../App/UIComponents/textField.jsx'
 
 export default function EditListingPopup({ data, onClose, getTableData }) {
   const [listingID, setListingID] = React.useState(data["_id"]);
