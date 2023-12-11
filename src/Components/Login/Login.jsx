@@ -4,23 +4,21 @@ import CreateNewUser from '../User/CreateUser';
 import './Login.css';
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:3001/auth', {
+    return fetch('/auth', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
     })
-    //.then(data => data.json())
     .then(response => {
-        // Check if the response status is OK (200)
         if (response.ok) {
-          return response.json(); // or response.text() depending on the expected response type
+            return response.json(); 
         }
         else {
-          throw new Error(`Invalid Username or Password`);
+            throw new Error(`Invalid Username or Password`);
         }
-      })
+        })
 }
 
 const Login = ({settoken}) => {
@@ -50,30 +48,28 @@ const Login = ({settoken}) => {
         setShowCreateUser(false);
     };
   return (
-    <>
-    <div >
-        <div>
-            <div>
-                <div className="my-component-container">
-                    <h1>Sign In Here</h1>
-                    <p>{`${validation}`}</p>
-                    <form onSubmit={handleSubmit}>
-                        <p>UserName</p>
-                        <input type="text" onChange={e => setusername(e.target.value)} className="textbox" required placeholder='JohnDoe'/>
-                        <p>Password</p>
-                        <input type="password" onChange={e => setpassword(e.target.value)} className="textbox" required placeholder='Please enter a strong password'/>
-                        <button type="submit" className='button'>Submit</button>
-                        <div>
-                            <p><input type="checkbox" />Remember Me</p>
-                        </div>
-                    </form>
-                    <button className="button" id="createBtn" onClick={() => setShowCreateUser(true)}>New User? Click here to create an account</button>
-                    <CreateNewUser onClose={handleClosePopup} showCreateUser={showCreateUser}/>
+    <div className='body'>
+        <div className="centered-div-no-boarder"></div>
+        <div className="centered-div">
+            <h1>Sign In Here</h1>
+            <p>{`${validation}`}</p>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <h2>UserName </h2>
+                    <input type="text" onChange={e => setusername(e.target.value)} className="textbox" required placeholder='JohnDoe'/>
                 </div>
-            </div>
+                <div>
+                    <h2>Password </h2>
+                    <input type="password" onChange={e => setpassword(e.target.value)} className="textbox" required placeholder='Please enter a strong password'/>
+                </div>
+                <div>
+                    <p></p><button type="submit" className='button'>Submit</button>
+                </div>
+            </form>
+            <button className="button" id="createBtn" onClick={() => setShowCreateUser(true)}>New User? Click here to create an account</button>
+            <CreateNewUser onClose={handleClosePopup} showCreateUser={showCreateUser}/>
         </div>
     </div>
-    </>
   )
 }
 

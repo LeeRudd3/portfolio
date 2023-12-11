@@ -62,7 +62,6 @@ class API {
 
     async delete(data) {
         let returnJSON;
-        console.log(`data that is passed to api is ${data}`);
         try {
             let jsonData = {
                 ids: data
@@ -89,7 +88,7 @@ class API {
         let returnJSON;
         try{
             console.log(`email ${email} and token ${token}`);
-            /*returnJSON = await fetch(`http://localhost:3001/users/byemail/${email}`, {
+            /*returnJSON = await fetch(`/users/byemail/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

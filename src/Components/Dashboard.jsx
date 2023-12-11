@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Login from '../Components/Login/Login';
 import useToken from './App/useToken';
 import Profile from './Profile';
@@ -8,20 +9,24 @@ import Logout from './Login/Logout';
 
 const Dashboard = () => {
 
-  const {token, settoken }= useToken()
+  const {token, settoken }= useToken();
   const [showVenue, setShowVenue]=useState(true);
   const [showProfile, setShowProfile]=useState(false);
+  const [header, setHeaderTxt] = useState('Venue');
+  const navigate = useNavigate();
 
   if(!token) {
     return<Login settoken={settoken} />
   }
 
   const setShowVenueStatus = () => {
+    setHeaderTxt('Venue');
     setShowVenue(true);
     setShowProfile(false);
   }
 
   const setShowProfileStatus = () => {
+    setHeaderTxt('Profile');
     setShowVenue(false);
     setShowProfile(true);
   }
@@ -32,10 +37,10 @@ const Dashboard = () => {
       <div style={{ width: '150px', backgroundColor: '#0056b3', color: '#fff', padding: '20px', borderRadius: '0 10px 10px 0' }}>
         <h2>Navigation </h2>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><button className="button" id="venueBtn" onClick={() => setShowVenueStatus()}>Venues</button></li>
-          <li><button className="button" id="profileBtn" onClick={() => setShowProfileStatus()}>Profile</button></li>
-          <li><Logout /></li>
+          <button className="button" id="homeBtn" onClick={() => navigate('/')}>Home</button>
+          <button className="button" id="venueBtn" onClick={() => setShowVenueStatus()}>Venues</button>
+          <button className="button" id="profileBtn" onClick={() => setShowProfileStatus()}>Profile</button>
+          <Logout />
         </ul>
       </div>
 
@@ -43,7 +48,7 @@ const Dashboard = () => {
       <div style={{ flex: 1 }}>
         {/* Header */}
         <header style={{ backgroundColor: '#0056b3', color: '#fff', padding: '15px', textAlign: 'center', borderRadius: '10px 10px 0 0' }}>
-          <h1>Header</h1>
+          <h1>{`${header}`}</h1>
         </header>
 
         {/* Main Content */}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, Component } from "react";
 import TextField from '../App/UIComponents/textField.jsx';
 
 async function editBasicUser(token, id, jsonData) {
-    return fetch(`http://localhost:3001/users/${id}`, {
+    return fetch(`/users/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

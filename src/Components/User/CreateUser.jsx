@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import TextField from '../App/UIComponents/textField';
+import PasswordTextField from '../App/UIComponents/passwordTextField';
 
 async function createUser(credentials) {
-    return fetch('http://localhost:3001/users', {
+    return fetch('/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -140,14 +141,14 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
                 handleInputChange={handleInputLastChange} 
                 validate={false}
                 error="" />
-            <TextField title="Password"
+            <PasswordTextField title="Password"
                 placeHolder="Enter Password"
                 name="password"
                 inputValue={inputPasswordValue}
                 handleInputChange={handleInputPasswordChange} 
                 validate={false}
                 error="" />
-            <TextField title="Reenter Password"
+            <PasswordTextField title="Reenter Password"
                 placeHolder="Enter Password"
                 name="reenterPassword"
                 inputValue={inputVerifyPasswordValue}

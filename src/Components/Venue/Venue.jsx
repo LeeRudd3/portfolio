@@ -7,7 +7,7 @@ import SearchListing from './SearchListing';
 async function getListings(limit) {
     let listings;
     try {
-        await fetch(`http://localhost:3001/venues`)
+        await fetch(`/venues`)
             .then((res) => res.json())
             .then((jsonData) => {
             listings = jsonData;

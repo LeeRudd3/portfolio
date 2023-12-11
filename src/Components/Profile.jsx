@@ -1,12 +1,14 @@
 import React, { useState, useEffect, Component } from 'react';
 import useToken from './App/useToken';
 import EditUser from './User/EditUser';
+import ChangePassword from './User/ChangePassword';
+import DeleteUser from './User/DeleteUser';
 import Logout from './Login/Logout';
 
 import { useNavigate } from 'react-router-dom';
 
 async function getData(token) {
-  const response = await fetch(`http://localhost:3001/users/byemail/${token.email}`, {
+  const response = await fetch(`/users/byemail/${token.email}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
@@ -24,6 +26,8 @@ const Profile = ( { showProfile }) => {
   const [inputLastValue, setInputLastValue] = useState('');
   const navigate = useNavigate();
   const [showEditUser, setShowEditUser] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showDeleteUser, setShowDeleteUser] = useState(false);
 
   useEffect(() => {
     async function getData2() {
@@ -49,6 +53,8 @@ const Profile = ( { showProfile }) => {
 
   const handleClosePopup = () => {
     setShowEditUser(false);
+    setShowChangePassword(false);
+    setShowDeleteUser(false);
   };
 
   return (
@@ -82,7 +88,21 @@ const Profile = ( { showProfile }) => {
         lastName={inputLastValue}
         setLastName={setInputLastValue}
         token={token}
-        />      
+        />
+      <button className="button" id="changePaswordBtn" onClick={() => setShowChangePassword(true)}>Change Password</button>
+      <ChangePassword onClose={handleClosePopup}
+        showChangePassword={showChangePassword}
+        id={inputIDValue}
+        email={inputEmailValue}
+        token={token}
+       />
+      <button className="button" id="deleteUserBtn" onClick={() => setShowDeleteUser(true)}>Delete Your User</button>
+      <DeleteUser onClose={handleClosePopup}
+        showDeleteUser={showDeleteUser}
+        id={inputIDValue}
+        email={inputEmailValue}
+        token={token}
+       />          
       <Logout />
     </div>
     
