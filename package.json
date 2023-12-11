@@ -22,7 +22,7 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://leeruddportfolioapi.onrender.com/",
   "eslintConfig": {
     "extends": [
       "react-app",
