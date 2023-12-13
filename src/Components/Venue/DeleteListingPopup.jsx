@@ -25,7 +25,7 @@ function DeleteListingPopup({ data, onClose, getTableData }) {
     <div className='popup'>
         <div className='popup-content'>
           <div className='model-header'>
-            <h2 className='model-title'>Delete Listing?</h2>
+            <h2 className='model-title'>Delete Venue?</h2>
           </div>
           <div className='model-body'>
             <div>

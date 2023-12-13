@@ -1,0 +1,21 @@
+.pagetdnext {
+    text-align: left;
+    width: 10px;
+}
+
+.pagetdnumber {
+    width: 10px;
+}
+
+.pagetextbox {
+    width: 50px; /* Adjust the width as needed */
+    padding: 10px;
+    border: 1px solid #ccc; /* Border for the textbox */
+    border-radius: 10px; /* Adjust the border-radius to control the corner curvature */
+    outline: none; /* Remove the default outline on focus (optional) */
+  }
+
+.pagetdprev {
+    text-align: right;
+    width: 10px;
+}

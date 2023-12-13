@@ -38,6 +38,21 @@ class API {
         return listings;
     }
 
+    async getAllVenues() {
+        let venues;
+        try {
+            await fetch(`/getvenues/all`)
+                .then((res) => res.json())
+                .then((jsonData) => {
+                    venues = jsonData;
+            });
+        } catch (error) {
+            console.log(`Error getting venues`, error);
+        }
+        console.log(`venues retrieved is ${typeof venues}`);
+        return venues;
+    }
+
     async edit(listingID, jsonData) {
         let update;
         try {

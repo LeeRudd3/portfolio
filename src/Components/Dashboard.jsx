@@ -12,7 +12,7 @@ const Dashboard = () => {
   const {token, settoken }= useToken();
   const [showVenue, setShowVenue]=useState(true);
   const [showProfile, setShowProfile]=useState(false);
-  const [header, setHeaderTxt] = useState('Venue');
+  const [header, setHeaderTxt] = useState('Music Venues');
   const navigate = useNavigate();
 
   if(!token) {
@@ -20,7 +20,7 @@ const Dashboard = () => {
   }
 
   const setShowVenueStatus = () => {
-    setHeaderTxt('Venue');
+    setHeaderTxt('Music Venues');
     setShowVenue(true);
     setShowProfile(false);
   }
