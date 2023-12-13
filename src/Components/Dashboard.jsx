@@ -36,7 +36,6 @@ const Dashboard = () => {
       {/* Left Panel */}
       <div style={{ width: '150px', backgroundColor: '#0056b3', color: '#fff', padding: '20px', borderRadius: '0 10px 10px 0' }}>
         <h2>Navigation </h2>
-        <p>Administration</p>
         <ul>
           <button className="button" id="homeBtn" onClick={() => navigate('/')}>Home</button>
           <button className="button" id="venueBtn" onClick={() => setShowVenueStatus()}>Venues</button>
