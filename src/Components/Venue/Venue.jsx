@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import EditListingPopup from "./EditListingPopup";
-import CreateNewListing from './CreateNewListing';
+import CreateNewVenue from './CreateNewVenue';
 import DeleteListingPopup from './DeleteListingPopup';
-import SearchListing from './SearchListing';
+import SearchVenue from './SearchVenue';
+import ReactPaginate from 'react-paginate';
+import './Venue.css';
 
-async function getListings(limit) {
-    let listings;
+async function getVenues() {
+    let venues;
     try {
-        await fetch(`/venues`)
+        await fetch(`/getvenues/all`)
             .then((res) => res.json())
             .then((jsonData) => {
-            listings = jsonData;
+              venues = jsonData;
         });
     } catch (error) {
-        console.log(`Error getting listings`, error);
+        console.log(`Error getting venues`, error);
     }
-    console.log(`Listings retrieved is ${typeof listings}`);
-    return listings;
+    return venues;
 }
 
 const Venue = ({ showVenue }) => {
@@ -26,10 +27,12 @@ const Venue = ({ showVenue }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [popupVisible, setPopupVisible] = useState(false);
   const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+	const [postsPerPage] = useState(10);
 
   useEffect(() => {
     async function getData() {
-      const res = await getListings(100);
+      const res = await getVenues();
      setData(res);
     }
     getData();
@@ -39,8 +42,16 @@ const Venue = ({ showVenue }) => {
     return null;
   }
 
+  const indexOfLastPost = currentPage * postsPerPage;
+	const indexOfFirstPost = indexOfLastPost - postsPerPage;
+	const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+
+	const paginate = ({ selected }) => {
+		setCurrentPage(selected + 1);
+	};
+
   const getTableData = async() => {
-    setData(await getListings(100));
+    setData(await getVenues());
 
     setDeleteButtonVisible(false);
   }
@@ -92,9 +103,10 @@ const Venue = ({ showVenue }) => {
 
   return (
     <div>
-      <h1>Music Venues</h1>
-      <SearchListing setTableData={setTableData} />
-      <table id='listingtable'>
+      <div>
+        <SearchVenue setTableData={setTableData} /> 
+      </div>
+      <table id='listingtable' style={{ width: 1000 }}>
         <thead>
           <tr>
             <th></th>
@@ -105,7 +117,7 @@ const Venue = ({ showVenue }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {currentPosts.map((item) => (
             <tr key={item._id} id={item._id}>
               <td>
                 <input
@@ -128,11 +140,25 @@ const Venue = ({ showVenue }) => {
         <EditListingPopup data={selectedItem} onClose={handleClosePopup} getTableData={getTableData} />
       )}
 
+      <div style={{display: 'flex',  justifyContent:'right', alignItems:'right'}}>
+        <ReactPaginate
+              onPageChange={paginate}
+              pageCount={Math.ceil(data.length / postsPerPage)}
+              previousLabel={'Prev'}
+              nextLabel={'Next'}
+              containerClassName={'pagination'}
+              pageLinkClassName={'page-number'}
+              previousLinkClassName={'page-number'}
+              nextLinkClassName={'page-number'}
+              activeLinkClassName={'active'}
+            />
+      </div>
+
       <div>
-        <button className="button" id="createBtn" onClick={() => setShowCreateListing(true)}>Create Listing</button>
-        <CreateNewListing onClose={handleClosePopup} showCreateListing={showCreateListing} updateTableData={updateTableData}/>
+        <button className="button" id="createBtn" onClick={() => setShowCreateListing(true)}>Create Venue</button>
+        <CreateNewVenue onClose={handleClosePopup} showCreateListing={showCreateListing} updateTableData={updateTableData}/>
         {deleteButtonVisible && (
-          <button className="button" onClick={handleItemsShowSelected}>Delete Listings</button>
+          <button className="button" onClick={handleItemsShowSelected}>Delete Venues</button>
         )}
         
         {popupVisible && (

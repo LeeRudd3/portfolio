@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import API from '../App/API/API.js';
 import TextField from '../App/UIComponents/textField.jsx'
 
-export default function CreateNewListing({ onClose, showCreateListing, updateTableData }) {
+export default function CreateNewVenue({ onClose, showCreateListing, updateTableData }) {
   const api = new API();
   const [inputNameValue, setInputNameValue] = React.useState('');
   const [inputSummaryValue, setInputSummaryValue] = React.useState('');
@@ -129,10 +129,10 @@ export default function CreateNewListing({ onClose, showCreateListing, updateTab
       <div className='popup' name='Create'>
         <div className='popup-content'>
           <div className='model-header'>
-            <h2 className='model-title'>Create New Listing</h2>
+            <h2 className='model-title'>Create New Venue</h2>
           </div>
           <div className='model-body'>
-            <TextField title="Enter Listing Name"
+            <TextField title="Enter Venue Name"
               placeHolder="Enter name"
               name="listingName"
               inputValue={inputNameValue}
@@ -140,7 +140,7 @@ export default function CreateNewListing({ onClose, showCreateListing, updateTab
               validate={validateName}
               error="Name can't be empty" />
 
-            <TextField title="Enter Listing Summary"
+            <TextField title="Enter Venue Summary"
               placeHolder="Enter summary"
               name="listingSummary"
               inputValue={inputSummaryValue}
@@ -148,7 +148,7 @@ export default function CreateNewListing({ onClose, showCreateListing, updateTab
               validate={false}
               error="" />
 
-            <TextField title="Enter Listing Bedrooms"
+            <TextField title="Enter Bedrooms"
               placeHolder="Enter # of Bedrooms"
               name="listingBedrooms"
               inputValue={inputBedroomValue}
@@ -156,7 +156,7 @@ export default function CreateNewListing({ onClose, showCreateListing, updateTab
               validate={validateBedroom}
               error="Bedrooms must be a number" />
               
-            <TextField title="Enter Listing Bathrooms"
+            <TextField title="Enter Bathrooms"
               placeHolder="Enter # of Bathrooms"
               name="listingBathrooms"
               inputValue={inputBathroomValue}
@@ -165,7 +165,7 @@ export default function CreateNewListing({ onClose, showCreateListing, updateTab
               error="Bathrooms must be a number" />           
           </div>
           <div className='model-footer'>
-            <button onClick={handleAction} className="button" name='addBtn'>Add Listing</button>
+            <button onClick={handleAction} className="button" name='addBtn'>Add Venue</button>
             <button className='button' onClick={handleOnClose}>Close</button>
           </div>
         </div>

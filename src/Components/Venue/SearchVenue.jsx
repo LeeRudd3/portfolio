@@ -1,7 +1,7 @@
 import React, { useState, Component } from 'react';
 import API from '../App/API/API';
 
-export default function SearchListing({ setTableData }) {
+export default function SearchVenue({ setTableData }) {
     
     const [searchValue, setSearchValue] = useState("");
     const [clearButtonVisible, setClearButtonVisible] = useState(false);
@@ -12,25 +12,25 @@ export default function SearchListing({ setTableData }) {
         setSearchValue(event.target.value);
     }
 
-    const searchListing = async (searchTerm) => {
+    const searchVenue = async (searchTerm) => {
         setTableData(await api.search(searchTerm));
     }
     
 
     const handleAction = () => {
         setClearButtonVisible(true);
-        searchListing(searchValue);
+        searchVenue(searchValue);
     }
 
     const handleClear = async () => {
         setSearchValue("");
         setClearButtonVisible(false);
-        setTableData(await api.getListings(100));
+        setTableData(await api.getAllVenues());
     }
 
     return (
         <div>
-            <p>Search Listings <input
+            <p>Search <input
                 type="text"
                 className="textbox"
                 value={searchValue}
