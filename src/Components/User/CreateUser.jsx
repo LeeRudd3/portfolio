@@ -73,7 +73,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
     }
     
     if(noErrors) {*/
-      api.createNewUser();
+      createNewUser();
       // Close the pop-up
       onClose();
     //}
@@ -109,7 +109,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
         password: `${btoa(inputPasswordValue)}`,
         permissionLevel: `2057`
       }
-      createUser(jsonData);
+      api.createUser(jsonData);
 
     } catch (error) {
       console.error('Error in creating user', error);
