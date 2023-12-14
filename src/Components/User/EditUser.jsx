@@ -1,21 +1,13 @@
 import React, { useState, useEffect, Component } from "react";
 import TextField from '../App/UIComponents/textField.jsx';
-
-async function editBasicUser(token, id, jsonData) {
-    return fetch(`/users/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token.token}`
-        },
-        body: JSON.stringify(jsonData)
-    });
-}
+import API from '../App/API/API.js';
 
 const EditUser = (props) => {
     const [backupEmailValue, setbackupEmailValue] = useState();
     const [backupFirstNameValue, setbackupFirstNameValue] = useState();
     const [backupLastNameValue, setbackupLastNameValue] = useState();
+
+    const api = new API();
     
     if (!props.showEditUser) {
         return null;
@@ -80,7 +72,7 @@ const EditUser = (props) => {
 
         //If we have a change, we will call the api.  If no change, we make no call
         if(needToEdit) {
-            editBasicUser(props.token, props.id, jsonData);
+            api.editBasicUser(props.token, props.id, jsonData);
         }
 
         props.onClose();

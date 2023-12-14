@@ -1,40 +1,14 @@
 import React, { useState, useEffect, Component } from "react";
 import PasswordTextField from '../App/UIComponents/passwordTextField';
-
-async function editBasicUser(token, id, jsonData) {
-    return fetch(`/users/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token.token}`
-        },
-        body: JSON.stringify(jsonData)
-    });
-}
-
-async function authUser(credentials) {
-    return fetch('/auth', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json(); 
-        }
-        else {
-            throw new Error(`Invalid Username or Password`);
-        }
-        })
-}
+import API from '../App/API/API';
 
 const ChangePassword = (props) => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [password, setPassword] = useState('');
     const [retype, setRetype] = useState('');
     const [validation, setValidation] = useState('');
+
+    const api = new API();
     
     if (!props.showChangePassword) {
         return null;
@@ -70,14 +44,14 @@ const ChangePassword = (props) => {
         
         try {
             if(password === retype){
-                await authUser({
+                await api.authUser({
                     email: props.email,
-                    password: currentPassword
+                    password: btoa(currentPassword)
                 });
                 //token.email = props.email;
                 //settoken(token);
                 needToEdit=true;
-                jsonData.password = `${password}`;
+                jsonData.password = `${btoa(password)}`;
             }
             else {
                 setValidation(`Passwords do not match!`);
@@ -89,7 +63,7 @@ const ChangePassword = (props) => {
 
         //If we have a change, we will call the api.  If no change, we make no call
         if(needToEdit) {
-            editBasicUser(props.token, props.id, jsonData);
+            api.editBasicUser(props.token, props.id, jsonData);
             props.onClose();
         }
 

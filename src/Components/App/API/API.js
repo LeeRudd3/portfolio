@@ -23,19 +23,19 @@ class API {
         return findings;
     }
 
-    async getListings(limit) {
-        let listings;
+    async getVenues(limit) {
+        let venues;
         try {
             await fetch(`/venues`)
                 .then((res) => res.json())
                 .then((jsonData) => {
-                listings = jsonData;
+                venues = jsonData;
             });
         } catch (error) {
-            console.log(`Error getting listings`, error);
+            console.log(`Error getting venues`, error);
         }
-        console.log(`Listings retrieved is ${typeof listings}`);
-        return listings;
+        console.log(`Venues retrieved is ${typeof venues}`);
+        return venues;
     }
 
     async getAllVenues() {
@@ -53,10 +53,10 @@ class API {
         return venues;
     }
 
-    async edit(listingID, jsonData) {
+    async edit(venueID, jsonData) {
         let update;
         try {
-            await fetch(`/venues/${listingID}`, {
+            await fetch(`/venues/${venueID}`, {
                 method: 'PATCH', 
                 headers: {
                     'Content-Type': 'application/json', // Specify the content type as JSON
@@ -65,11 +65,11 @@ class API {
             
                 })
                 .then((res) => res.json())
-                .then((listing) => {
-                    update = listing.message;
+                .then((venue) => {
+                    update = venue.message;
             });
         } catch (error) {
-            console.error(`Error in editing for ${listingID}`, error);
+            console.error(`Error in editing for ${venueID}`, error);
         }
 
         return update;
@@ -93,7 +93,7 @@ class API {
             }).json;
 
         } catch (error) {
-            console.error('Error in deleting listing', error);
+            console.error('Error in deleting venue', error);
         }
 
         return returnJSON;
@@ -116,6 +116,85 @@ class API {
             returnJSON = null;
         }
         return returnJSON;
+    }
+    
+    async login(credentials) {
+        return fetch('/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); 
+            }
+            else {
+                throw new Error(`Invalid Username or Password`);
+            }
+            })
+    }
+
+    async editBasicUser(token, id, jsonData) {
+        return fetch(`/users/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.token}`
+            },
+            body: JSON.stringify(jsonData)
+        });
+    }
+    
+    async authUser(credentials) {
+        return fetch('/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); 
+            }
+            else {
+                throw new Error(`Invalid Username or Password`);
+            }
+            })
+    }
+
+    async createUser(credentials) {
+        return fetch('/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+            .then(data => data.json())
+    }
+
+    async editBasicUser(token, id, jsonData) {
+        return fetch(`/users/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.token}`
+            },
+            body: JSON.stringify(jsonData)
+        });
+    }
+
+    async deleteUser(token, id) {
+        return fetch(`/users/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
     }
     
     async create(jsonData) {

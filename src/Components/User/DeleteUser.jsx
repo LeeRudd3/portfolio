@@ -2,41 +2,15 @@ import React, { useState, useEffect, Component } from "react";
 import PasswordTextField from '../App/UIComponents/passwordTextField';
 import useToken from '../App/useToken';
 import { useNavigate } from 'react-router-dom';
-
-
-async function deleteUser(token, id) {
-    return fetch(`/users/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token.token}`
-        }
-    });
-}
-
-async function authUser(credentials) {
-    return fetch('/auth', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json(); 
-        }
-        else {
-            throw new Error(`Invalid Username or Password`);
-        }
-        })
-}
+import API from '../App/API/API';
 
 const DeleteUser = (props) => {
     const {token, settoken }= useToken();
     const navigate = useNavigate();
     const [currentPassword, setCurrentPassword] = useState('');
     const [validation, setValidation] = useState('');
+
+    const api = new API();
     
     if (!props.showDeleteUser) {
         return null;
@@ -57,9 +31,9 @@ const DeleteUser = (props) => {
             
         try {
             
-            await authUser({
+            await api.authUser({
                 email: props.email,
-                password: currentPassword
+                password: btoa(currentPassword)
             });
             needToEdit=true;
 
@@ -69,7 +43,7 @@ const DeleteUser = (props) => {
 
         //If we have a change, we will call the api.  If no change, we make no call
         if(needToEdit) {
-            deleteUser(props.token, props.id);
+            api.deleteUser(props.token, props.id);
             settoken(null);
             navigate('/');
         }

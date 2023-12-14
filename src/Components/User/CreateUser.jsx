@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '../App/UIComponents/textField';
 import PasswordTextField from '../App/UIComponents/passwordTextField';
+import API from '../App/API/API'
 
 async function createUser(credentials) {
     return fetch('/users', {
@@ -19,6 +20,8 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
   const [inputLastValue, setInputLastValue] = useState('');
   const [inputPasswordValue, setInputPasswordValue] = useState('');
   const [inputVerifyPasswordValue, setInputVerifyPasswordValue] = useState('');
+
+  const api = new API();
 
   if (!showCreateUser) {
     return null;
@@ -70,7 +73,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
     }
     
     if(noErrors) {*/
-      createNewUser();
+      api.createNewUser();
       // Close the pop-up
       onClose();
     //}
@@ -103,7 +106,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
         firstName: `${inputFirstValue}`,
         lastName: `${inputLastValue}`,
         email: `${inputEmailValue}`,
-        password: `${inputPasswordValue}`,
+        password: `${btoa(inputPasswordValue)}`,
         permissionLevel: `2057`
       }
       createUser(jsonData);

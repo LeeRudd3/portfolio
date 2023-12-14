@@ -2,11 +2,11 @@ import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
-import DeleteListingPopup from '../DeleteListingPopup'; // Adjust the path to your component
-import API from '../API/API.js'; // Adjust the path to your API file
+import DeleteVenuePopup from '../../../Components/Venue/DeleteVenuePopup.jsx'; // Adjust the path to your component
+import API from '../../../Components/App/API/API.js'; // Adjust the path to your API file
 
-describe('DeleteListingPopup', () => {
-  it('should call DeleteListing and delete data on confirm button click', async () => {
+describe('DeleteVenuePopup', () => {
+  it('should call Deletevenue and delete data on confirm button click', async () => {
     const mockData = ["6536a4c92d920aaebeb37bf4", "6536a4e02d920aaebeb37bf5"];
 
     // Mock the API.edit method
@@ -17,7 +17,7 @@ describe('DeleteListingPopup', () => {
 
     const { getByText, getByPlaceholderText, getByDisplayValue } = render(
       //<EditListingPopup data={mockData} getTableData={getTableData} onClose={onClose} />
-      <DeleteListingPopup
+      <DeleteVenuePopup
             data={mockData}
             onClose={onClose}
             getTableData={getTableData}

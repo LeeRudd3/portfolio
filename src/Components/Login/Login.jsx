@@ -1,39 +1,23 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import CreateNewUser from '../User/CreateUser';
+import API from '../App/API/API'
 import './Login.css';
-
-async function loginUser(credentials) {
-    return fetch('/auth', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json(); 
-        }
-        else {
-            throw new Error(`Invalid Username or Password`);
-        }
-        })
-}
 
 const Login = ({settoken}) => {
     const [username, setusername] = useState();
     const [password, setpassword] = useState();
     const [showCreateUser, setShowCreateUser] = useState(false);
     const [validation, setValidation] = useState('');
+    const api = new API();
 
     const handleSubmit = async e => {
         let token;
         try{
             e.preventDefault();
-            token = await loginUser({
+            token = await api.login({
                 email: username,
-                password: password
+                password: btoa(password)
             });
             token.email = username;
             settoken(token);

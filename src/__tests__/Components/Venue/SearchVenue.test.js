@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import SearchListing from '../SearchListing';
-import API from '../API/API.js';
+import SearchVenue from '../../../Components/Venue/SearchVenue.jsx';
+import API from '../../../Components/App/API/API.js';
 
-describe('SearchListing', () => {
+describe('SearchVenue', () => {
   it('should call the API and update the table data on button click', async () => {
     const setTableData = jest.fn(); // Create a mock function
 
@@ -15,11 +15,11 @@ describe('SearchListing', () => {
     });
 
     const { getByTestId, getByText } = render(
-      <SearchListing setTableData={setTableData} />
+      <SearchVenue setTableData={setTableData} />
     );
 
     const searchInput = getByTestId('search');
-    const searchButton = getByText('Search');
+    const searchButton = getByTestId('searchbtn');
 
     fireEvent.change(searchInput, { target: { value: 'example' } });
     fireEvent.click(searchButton);
@@ -37,19 +37,13 @@ describe('SearchListing', () => {
     const setTableData = jest.fn();
 
     // Mock the API.search method
-    API.prototype.search = jest.fn().mockImplementation(async (searchTerm) => {
-      // Return a resolved promise with your mocked JSON data
-      return { data: 'mocked JSON data' };
-    });
-
-    // Mock the API.search method
-    API.prototype.getListings = jest.fn().mockImplementation(async () => {
+    API.prototype.search = jest.fn().mockImplementation(async () => {
       // Return a resolved promise with your mocked JSON data
       return { data: 'mocked Clear JSON data' };
     });
 
     const { getByTestId, getByText } = render(
-      <SearchListing setTableData={setTableData} />
+      <SearchVenue setTableData={setTableData} />
     );
 
     // Simulate typing a search term into the input field
@@ -57,7 +51,7 @@ describe('SearchListing', () => {
     fireEvent.change(searchInput, { target: { value: 'example' } });
 
     // Simulate clicking the Search button
-    const searchButton = getByText('Search');
+    const searchButton = getByTestId('searchbtn');
     fireEvent.click(searchButton);
 
     // Wait for the API call to resolve
