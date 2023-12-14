@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import EditListingPopup from "./EditListingPopup";
+import EditVenuePopup from "./EditVenuePopup";
 import CreateNewVenue from './CreateNewVenue';
-import DeleteListingPopup from './DeleteListingPopup';
+import DeleteListingPopup from './DeleteVenuePopup';
 import SearchVenue from './SearchVenue';
 import ReactPaginate from 'react-paginate';
+import API from '../App/API/API';
 import './Venue.css';
-
-async function getVenues() {
-    let venues;
-    try {
-        await fetch(`/getvenues/all`)
-            .then((res) => res.json())
-            .then((jsonData) => {
-              venues = jsonData;
-        });
-    } catch (error) {
-        console.log(`Error getting venues`, error);
-    }
-    return venues;
-}
 
 const Venue = ({ showVenue }) => {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [showCreateListing, setShowCreateListing] = React.useState(false);
+  const [showCreateVenue, setShowCreateVenue] = React.useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [popupVisible, setPopupVisible] = useState(false);
   const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 	const [postsPerPage] = useState(10);
 
+  const api = new API();
+
   useEffect(() => {
     async function getData() {
-      const res = await getVenues();
+      const res = await api.getAllVenues();
      setData(res);
     }
     getData();
@@ -51,7 +40,7 @@ const Venue = ({ showVenue }) => {
 	};
 
   const getTableData = async() => {
-    setData(await getVenues());
+    setData(await api.getAllVenues());
 
     setDeleteButtonVisible(false);
   }
@@ -70,7 +59,7 @@ const Venue = ({ showVenue }) => {
 
   const handleClosePopup = () => {
     setSelectedItem(null);
-    setShowCreateListing(false);
+    setShowCreateVenue(false);
   };
 
   const setItems = (item) => {
@@ -106,14 +95,14 @@ const Venue = ({ showVenue }) => {
       <div>
         <SearchVenue setTableData={setTableData} /> 
       </div>
-      <table id='listingtable' style={{ width: 1000 }}>
+      <table id='venuetable' style={{ width: 1500 }}>
         <thead>
           <tr>
             <th></th>
             <th>Name</th>
             <th>Summary</th>
-            <th>Bedrooms</th>
-            <th>Bathrooms</th>
+            <th>Type</th>
+            <th>Location</th>
           </tr>
         </thead>
         <tbody>
@@ -129,15 +118,15 @@ const Venue = ({ showVenue }) => {
               <td onClick={() => handleItemClick(item)}>
                 <p className="link-like" itemname={item.name}>{item.name}</p>
               </td>
-              <td name='summary'>{item.summary}</td>
-              <td name='bedrooms'>{item.bedrooms}</td>
-              <td name='bathrooms'>{item.bathrooms}</td>
+              <td name='Summary'>{item.summary}</td>
+              <td name='Type'>{item.type}</td>
+              <td name='Location'>{`${item.city}, ${item.state}`}</td>
             </tr>
           ))}
         </tbody>
       </table>
       {selectedItem && (
-        <EditListingPopup data={selectedItem} onClose={handleClosePopup} getTableData={getTableData} />
+        <EditVenuePopup data={selectedItem} onClose={handleClosePopup} getTableData={getTableData} />
       )}
 
       <div style={{display: 'flex',  justifyContent:'right', alignItems:'right'}}>
@@ -155,8 +144,8 @@ const Venue = ({ showVenue }) => {
       </div>
 
       <div>
-        <button className="button" id="createBtn" onClick={() => setShowCreateListing(true)}>Create Venue</button>
-        <CreateNewVenue onClose={handleClosePopup} showCreateListing={showCreateListing} updateTableData={updateTableData}/>
+        <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)}>Create Venue</button>
+        <CreateNewVenue onClose={handleClosePopup} showCreateVenue={showCreateVenue} updateTableData={updateTableData}/>
         {deleteButtonVisible && (
           <button className="button" onClick={handleItemsShowSelected}>Delete Venues</button>
         )}

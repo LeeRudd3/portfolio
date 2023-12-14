@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import API from '../App/API/API.js';
 import TextField from '../App/UIComponents/textField.jsx'
 
-export default function CreateNewVenue({ onClose, showCreateListing, updateTableData }) {
+export default function CreateNewVenue({ onClose, showCreateVenue, updateTableData }) {
   const api = new API();
-  const [inputNameValue, setInputNameValue] = React.useState('');
-  const [inputSummaryValue, setInputSummaryValue] = React.useState('');
-  const [inputBedroomValue, setInputBedroomValue] = React.useState('');
-  const [inputBathroomValue, setInputBathroomValue] = React.useState('');
-  const [validateName, setValidateName] = React.useState(false);
-  const [validateBedroom, setValidateBedroom] = React.useState(false);
-  const [validateBathroom, setValidateBathroom] = React.useState(false);
+  const [inputNameValue, setInputNameValue] = useState('');
+  const [inputSummaryValue, setInputSummaryValue] = useState('');
+  const [inputTypeValue, setInputTypeValue] = useState('');
+  const [inputAddress1Value, setInputAddress1Value] = useState('');
+  const [inputAddress2Value, setInputAddress2Value] = useState('');
+  const [inputCityValue, setInputCityValue] = useState('');
+  const [inputStateValue, setInputStateValue] = useState('');
+  const [validateName, setValidateName] = useState(false);
 
-  if (!showCreateListing) {
+  if (!showCreateVenue) {
     return null;
   }
 
@@ -25,26 +26,28 @@ export default function CreateNewVenue({ onClose, showCreateListing, updateTable
     setInputSummaryValue(event.target.value);
   };
 
-  const handleInputBedroomChange = (event) => {
-    setInputBedroomValue(event.target.value);
-
-    if(isFloat(`${event.target.value}`)) {
-      setValidateBedroom(false);
-    }
+  const handleInputTypeChange = (event) => {
+    setInputTypeValue(event.target.value);
   };
 
-  const handleInputBathroomChange = (event) => {
-    setInputBathroomValue(event.target.value);
+  const handleInputAddress1Change = (event) => {
+    setInputAddress1Value(event.target.value);
+  };
 
-    if(isFloat(`${event.target.value}`)) {
-      setValidateBathroom(false);
-    }
+  const handleInputAddress2Change = (event) => {
+    setInputAddress2Value(event.target.value);
+  };
+
+  const handleInputCityChange = (event) => {
+    setInputCityValue(event.target.value);
+  };
+
+  const handleInputStateChange = (event) => {
+    setInputStateValue(event.target.value);
   };
 
   const handleOnClose = () => {
     setValidateName(false);
-    setValidateBedroom(false);
-    setValidateBathroom(false);
     onClose();
   }
 
@@ -55,18 +58,9 @@ export default function CreateNewVenue({ onClose, showCreateListing, updateTable
       setValidateName(true);
       noErrors = false;
     }
-    if(!isFloat(`${inputBedroomValue}`)) {
-      setValidateBedroom(true);
-      noErrors = false;
-    }
-
-    if(!isFloat(`${inputBathroomValue}`)) {
-      setValidateBathroom(true);
-      noErrors = false;
-    }
     
     if(noErrors) {
-      createNewListing();
+      createNewVenue();
       // Close the pop-up
       onClose();
     }
@@ -93,34 +87,42 @@ export default function CreateNewVenue({ onClose, showCreateListing, updateTable
 
   }
 
-  const createNewListing = async () => {
+  const createNewVenue = async () => {
     try {
       let jsonData = {
         name: `${inputNameValue}`,
         summary: `${inputSummaryValue}`,
-        bedrooms: `${inputBedroomValue}`,
-        bathrooms: `${inputBathroomValue}`
+        type: `${inputTypeValue}`,
+        address1: `${inputAddress1Value}`,
+        address2: `${inputAddress2Value}`,
+        city: `${inputCityValue}`,
+        state: `${inputStateValue}`
       }
       const id = await api.create(jsonData);
-      console.log(`This is the id ${id}`);
       let newData = {
         _id: `${id}`,
         name: `${inputNameValue}`,
         summary: `${inputSummaryValue}`,
-        bedrooms: `${inputBedroomValue}`,
-        bathrooms: `${inputBathroomValue}`
+        type: `${inputTypeValue}`,
+        address1: `${inputAddress1Value}`,
+        address2: `${inputAddress2Value}`,
+        city: `${inputCityValue}`,
+        state: `${inputStateValue}`
       };
 
       updateTableData(newData);
 
       setInputNameValue("");
       setInputSummaryValue("");
-      setInputBedroomValue("");
-      setInputBathroomValue("");
+      setInputTypeValue("");
+      setInputAddress1Value("");
+      setInputAddress2Value("");
+      setInputCityValue("");
+      setInputStateValue("");
      
 
     } catch (error) {
-      console.error('Error in creating listing', error);
+      console.error('Error in creating venue', error);
     }
   };
 
@@ -134,7 +136,7 @@ export default function CreateNewVenue({ onClose, showCreateListing, updateTable
           <div className='model-body'>
             <TextField title="Enter Venue Name"
               placeHolder="Enter name"
-              name="listingName"
+              name="venueName"
               inputValue={inputNameValue}
               handleInputChange={handleInputNameChange} 
               validate={validateName}
@@ -142,27 +144,51 @@ export default function CreateNewVenue({ onClose, showCreateListing, updateTable
 
             <TextField title="Enter Venue Summary"
               placeHolder="Enter summary"
-              name="listingSummary"
+              name="venueSummary"
               inputValue={inputSummaryValue}
               handleInputChange={handleInputSummaryChange} 
               validate={false}
               error="" />
 
-            <TextField title="Enter Bedrooms"
-              placeHolder="Enter # of Bedrooms"
-              name="listingBedrooms"
-              inputValue={inputBedroomValue}
-              handleInputChange={handleInputBedroomChange} 
-              validate={validateBedroom}
-              error="Bedrooms must be a number" />
+            <TextField title="Enter Venue Type"
+              placeHolder="IE Stadium, Bar, Wedding, ..."
+              name="venueType"
+              inputValue={inputTypeValue}
+              handleInputChange={handleInputTypeChange} 
+              validate={false}
+              error="" />
               
-            <TextField title="Enter Bathrooms"
-              placeHolder="Enter # of Bathrooms"
-              name="listingBathrooms"
-              inputValue={inputBathroomValue}
-              handleInputChange={handleInputBathroomChange} 
-              validate={validateBathroom}
-              error="Bathrooms must be a number" />           
+            <TextField title="Enter Address 1"
+              placeHolder="Enter Address"
+              name="venueAddress1"
+              inputValue={inputAddress1Value}
+              handleInputChange={handleInputAddress1Change} 
+              validate={false}
+              error="" />
+
+            <TextField title="Enter Address 2"
+              placeHolder="Enter Address 2"
+              name="venueAddress2"
+              inputValue={inputAddress2Value}
+              handleInputChange={handleInputAddress2Change} 
+              validate={false}
+              error="" /> 
+
+            <TextField title="Enter City"
+              placeHolder="Enter City"
+              name="venueCity"
+              inputValue={inputCityValue}
+              handleInputChange={handleInputCityChange} 
+              validate={false}
+              error="" />
+
+            <TextField title="Enter State"
+              placeHolder="Enter State"
+              name="venueState"
+              inputValue={inputStateValue}
+              handleInputChange={handleInputStateChange} 
+              validate={false}
+              error="" />
           </div>
           <div className='model-footer'>
             <button onClick={handleAction} className="button" name='addBtn'>Add Venue</button>

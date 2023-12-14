@@ -1,23 +1,23 @@
 import React from 'react';
 import API from '../App/API/API';
 
-function DeleteListingPopup({ data, onClose, getTableData }) {
+function DeleteVenuePopup({ data, onClose, getTableData }) {
   const api = new API();
   
   const handleAction = () => {
-    deleteListing();
+    deleteVenue();
     
     // Close the pop-up
     onClose();
   
   };
 
-  const deleteListing = async () => {
+  const deleteVenue = async () => {
     try {
       api.delete(data);
       getTableData();
     } catch (error) {
-      console.error('Error in deleting listing', error);
+      console.error('Error in deleting venue', error);
     }
   };
   
@@ -29,7 +29,7 @@ function DeleteListingPopup({ data, onClose, getTableData }) {
           </div>
           <div className='model-body'>
             <div>
-              <p>Items to delete:</p>
+              <p>Venues to delete:</p>
               <ul>
                 {data.map((item, index) => (
                   <li key={index}>{item}</li>
@@ -46,4 +46,4 @@ function DeleteListingPopup({ data, onClose, getTableData }) {
   );
 }
 
-export default DeleteListingPopup;
+export default DeleteVenuePopup;
