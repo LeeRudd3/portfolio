@@ -34,7 +34,7 @@ const Dashboard = () => {
   return (
     <div style={{ display: 'flex' }}>
       {/* Left Panel */}
-      <div style={{ width: '150px', backgroundColor: '#0056b3', color: '#fff', padding: '20px', borderRadius: '0 10px 10px 0' }}>
+      <div style={{ width: '150px', backgroundColor: '#0056b3', color: '#fff', padding: '20px', borderRadius: '0 0 10px 0' }}>
         <h2>Navigation </h2>
         <ul>
           <button className="button" id="homeBtn" onClick={() => navigate('/')}>Home</button>
@@ -47,7 +47,7 @@ const Dashboard = () => {
       {/* Right Panel */}
       <div style={{ flex: 1 }}>
         {/* Header */}
-        <header style={{ backgroundColor: '#0056b3', color: '#fff', padding: '15px', textAlign: 'center', borderRadius: '10px 10px 0 0' }}>
+        <header style={{ backgroundColor: '#0056b3', color: '#fff', padding: '15px', textAlign: 'center', borderRadius: '0 10px 0 0' }}>
           <h1>{`${header}`}</h1>
         </header>
 

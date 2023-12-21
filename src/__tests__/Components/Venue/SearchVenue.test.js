@@ -14,6 +14,11 @@ describe('SearchVenue', () => {
       return { data: 'mocked JSON data' };
     });
 
+    API.prototype.getAllVenues = jest.fn().mockImplementation(async () => {
+      // Return a resolved promise with your mocked JSON data
+      return { data: 'mocked All JSON data' };
+    });
+
     const { getByTestId, getByText } = render(
       <SearchVenue setTableData={setTableData} />
     );

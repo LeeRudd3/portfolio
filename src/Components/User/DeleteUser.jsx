@@ -45,6 +45,7 @@ const DeleteUser = (props) => {
         if(needToEdit) {
             api.deleteUser(props.token, props.id);
             settoken(null);
+            props.onClose();
             navigate('/');
         }
 

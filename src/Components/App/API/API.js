@@ -136,7 +136,7 @@ class API {
             })
     }
 
-    async editBasicUser(token, id, jsonData) {
+    async editBasicUserRemove(token, id, jsonData) {
         return fetch(`/users/${id}`, {
             method: 'PATCH',
             headers: {

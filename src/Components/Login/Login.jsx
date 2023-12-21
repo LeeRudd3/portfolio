@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import CreateNewUser from '../User/CreateUser';
 import API from '../App/API/API'
-import './Login.css';
 
 const Login = ({settoken}) => {
     const [username, setusername] = useState();
