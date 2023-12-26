@@ -49,7 +49,6 @@ class API {
         } catch (error) {
             console.log(`Error getting venues`, error);
         }
-        console.log(`venues retrieved is ${typeof venues}`);
         return venues;
     }
 
@@ -100,22 +99,40 @@ class API {
     }
 
     async getUserByEmail(email, token) {
-        let returnJSON;
+        /*let returnJSON;
         try{
             console.log(`email ${email} and token ${token}`);
-            /*returnJSON = await fetch(`/users/byemail/${email}`, {
+            await fetch(`/users/byemail/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token.token}`
                 }
-                }).then((res) => res.json());*/
+              })
+              .then((res) => res.json())
+                .then((user) => {
+                    console.log(user);
+                    returnJSON = user;
+                    //return user;
+                });
         }
         catch(error) {
-            console.log('Error in deleting listing', error);
+            console.log(`Error in getting ${email} from server.  Error : ${error}`);
             returnJSON = null;
         }
-        return returnJSON;
+        return returnJSON;*/
+
+        return fetch(`/users/byemail/${email}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.token}`
+            }
+          })
+          .then((res) => res.json())
+            .then((user) => {
+                return user;
+            });
     }
     
     async login(credentials) {

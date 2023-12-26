@@ -22,7 +22,7 @@ const Venue = ({ showVenue }) => {
   useEffect(() => {
     async function getData() {
       const res = await api.getAllVenues();
-     setData(res);
+      setData(res);
     }
     getData();
   }, []);

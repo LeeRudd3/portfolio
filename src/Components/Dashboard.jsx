@@ -26,7 +26,7 @@ const Dashboard = () => {
   }
 
   const setShowProfileStatus = () => {
-    setHeaderTxt('Profile');
+    setHeaderTxt('User Profile');
     setShowVenue(false);
     setShowProfile(true);
   }
@@ -53,8 +53,8 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <main style={{ marginTop: '20px' }}>
-          <Venue showVenue={showVenue}/>
-          <Profile showProfile={showProfile} />
+          <Venue showVenue={showVenue} />
+          <Profile showProfile={showProfile} token={token} />
         </main>
       </div>
     </div>

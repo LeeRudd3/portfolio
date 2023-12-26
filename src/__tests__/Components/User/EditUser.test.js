@@ -42,7 +42,7 @@ describe('EditUser', () => {
     });
   };
 
-  it('should call eidtUser and edit user on button click', async () => {
+  it('should call editUser and edit user on button click', async () => {
     const mockData = {
         email: 'changetest@jesttest.com',
         firstName: 'changeFirstName',

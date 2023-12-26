@@ -118,7 +118,7 @@ const EditUser = (props) => {
                 </div>
                 <div className='model-footer'>
                     <button onClick={handleOnClick} className="button" name='editBtn' data-testid='editBtn'>Edit User</button>
-                    <button className='button' onClick={handleOnCancel}>Cancel</button>
+                    <button className='button' onClick={handleOnCancel} data-testid='cancelBtn'>Cancel</button>
                 </div>
             </div>
         </div>

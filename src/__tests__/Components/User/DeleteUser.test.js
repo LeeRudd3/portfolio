@@ -3,7 +3,7 @@ import { render, fireEvent, act, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import DeleteUser from '../../../Components/User/DeleteUser.jsx'; 
 import API from '../../../Components/App/API/API.js'; 
-import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+import {BrowserRouter, MemoryRouter} from 'react-router-dom';
 
 //Need to  follow this https://www.js-howto.com/how-to-mock-react-router-dom-hooks-in-jest/#google_vignette
 
