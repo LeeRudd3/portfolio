@@ -171,8 +171,8 @@ export default function EditVenuePopup({ data, onClose, getTableData }) {
               error="" />
 
             <div className='model-footer'>
-              <button className="button" onClick={handleEditVenue} id="update">Update</button>
-              <button className="button" onClick={handleOnClose} id="close">Close</button>
+              <button className="button" onClick={handleEditVenue} id="update" data-testid="updateBtn">Update</button>
+              <button className="button" onClick={handleOnClose} id="close" data-testid="closeBtn">Close</button>
             </div>
           </div>
         </div>

@@ -5,7 +5,6 @@ import DeleteListingPopup from './DeleteVenuePopup';
 import SearchVenue from './SearchVenue';
 import ReactPaginate from 'react-paginate';
 import API from '../App/API/API';
-import './Venue.css';
 
 const Venue = ({ showVenue }) => {
   const [data, setData] = useState([]);
@@ -107,20 +106,21 @@ const Venue = ({ showVenue }) => {
         </thead>
         <tbody>
           {currentPosts.map((item) => (
-            <tr key={item._id} id={item._id}>
+            <tr key={item._id} id={item._id} data-testid={item._id}>
               <td>
                 <input
                   type="checkbox"
                   checked={selectedItems.includes(item._id)}
                   onChange={() => handleItemsClick(item._id)}
+                  data-testid={`${item._id}checkBox`}
                 />
               </td>
               <td onClick={() => handleItemClick(item)}>
-                <p className="link-like" itemname={item.name}>{item.name}</p>
+                <p className="link-like" itemname={item.name} data-testid={`${item._id}name`}>{item.name}</p>
               </td>
-              <td name='Summary'>{item.summary}</td>
-              <td name='Type'>{item.type}</td>
-              <td name='Location'>{`${item.city}, ${item.state}`}</td>
+              <td name='Summary' data-testid={`${item._id}summary`}>{item.summary}</td>
+              <td name='Type' data-testid={`${item._id}type`}>{item.type}</td>
+              <td name='Location' data-testid={`${item._id}location`}>{`${item.city}, ${item.state}`}</td>
             </tr>
           ))}
         </tbody>
@@ -144,7 +144,7 @@ const Venue = ({ showVenue }) => {
       </div>
 
       <div>
-        <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)}>Create Venue</button>
+        <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)} data-testid="createVenue">Create Venue</button>
         <CreateNewVenue onClose={handleClosePopup} showCreateVenue={showCreateVenue} updateTableData={updateTableData}/>
         {deleteButtonVisible && (
           <button className="button" onClick={handleItemsShowSelected}>Delete Venues</button>

@@ -38,8 +38,8 @@ function DeleteVenuePopup({ data, onClose, getTableData }) {
             </div>
           </div>
           <div className='model-footer'>
-            <button onClick={handleAction} className="button">Confirm</button>
-            <button className='button' onClick={onClose}>Cancel</button>
+            <button onClick={handleAction} className="button" data-testid="confirmBtn">Confirm</button>
+            <button className='button' onClick={onClose} data-testid="cancelBtn">Cancel</button>
           </div>
         </div>
       </div>
