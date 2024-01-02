@@ -12,7 +12,7 @@ describe('Login', () => {
     );
 
     const username = getByPlaceholderText('JohnDoe');
-    const password = getByPlaceholderText('Please enter a strong password');
+    const password = getByPlaceholderText('Please enter password');
 
     // Simulate editing the input fields
     fireEvent.change(username, { target: { value: mockData['email'] } });
