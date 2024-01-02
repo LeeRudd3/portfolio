@@ -42,6 +42,7 @@ const Venue = ({ showVenue }) => {
     setData(await api.getAllVenues());
 
     setDeleteButtonVisible(false);
+    
   }
 
   const updateTableData = async newListing => {

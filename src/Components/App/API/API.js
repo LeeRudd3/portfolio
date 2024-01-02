@@ -1,6 +1,11 @@
-class API {
-    
+const config = require('../../../env.config');
+
+const url = config.api.address;
+
+class API {   
+
     constructor() {
+        
     }
     
     add(number1, number2) {
@@ -10,7 +15,7 @@ class API {
     async search(searchTerm) {
         let findings = "does this change";
         try {
-            await fetch(`/venues/search/${searchTerm}`)
+            await fetch(`${url}/venues/search/${searchTerm}`)
             .then((res) => res.json())
             .then((jsonData) => {
                 findings = jsonData;
@@ -26,7 +31,7 @@ class API {
     async getVenues(limit) {
         let venues;
         try {
-            await fetch(`/venues`)
+            await fetch(`${url}/venues`)
                 .then((res) => res.json())
                 .then((jsonData) => {
                 venues = jsonData;
@@ -41,7 +46,7 @@ class API {
     async getAllVenues() {
         let venues;
         try {
-            await fetch(`/getvenues/all`)
+            await fetch(`${url}/getvenues/all`)
                 .then((res) => res.json())
                 .then((jsonData) => {
                     venues = jsonData;
@@ -55,7 +60,7 @@ class API {
     async edit(venueID, jsonData) {
         let update;
         try {
-            await fetch(`/venues/${venueID}`, {
+            await fetch(`${url}/venues/${venueID}`, {
                 method: 'PATCH', 
                 headers: {
                     'Content-Type': 'application/json', // Specify the content type as JSON
@@ -81,7 +86,7 @@ class API {
                 ids: data
             }
 
-            returnJSON = await fetch(`/venues`, {  
+            returnJSON = await fetch(`${url}/venues`, {  
 
             method: 'DELETE', 
             headers: {
@@ -98,31 +103,34 @@ class API {
         return returnJSON;
     }
 
-    async getUserByEmail(email, token) {
-        /*let returnJSON;
-        try{
-            console.log(`email ${email} and token ${token}`);
-            await fetch(`/users/byemail/${email}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token.token}`
-                }
-              })
-              .then((res) => res.json())
-                .then((user) => {
-                    console.log(user);
-                    returnJSON = user;
-                    //return user;
-                });
-        }
-        catch(error) {
-            console.log(`Error in getting ${email} from server.  Error : ${error}`);
-            returnJSON = null;
-        }
-        return returnJSON;*/
+    async deleteVenueByName(name) {
+        let returnJSON;
+        try {
+            
+            returnJSON = await fetch(`${url}/venue/name/${name}`, {  
 
-        return fetch(`/users/byemail/${email}`, {
+            method: 'DELETE', 
+            headers: {
+                'Content-Type': 'application/json', // Specify the content type as JSON
+            } // body data type must match "Content-Type" header
+
+            }).json;
+
+        } catch (error) {
+            console.error('Error in deleting venue', error);
+        }
+
+        return returnJSON;
+    }
+
+    async deleteVenueByListofNames(names) {
+        for (let i = 0; i < names.length; i++) {
+            await this.deleteVenueByName(names[i]);
+        }
+    }
+
+    async getUserByEmail(email, token) {
+        return fetch(`${url}/users/byemail/${email}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +144,7 @@ class API {
     }
     
     async login(credentials) {
-        return fetch('/auth', {
+        return fetch(`${url}/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -148,13 +156,14 @@ class API {
                 return response.json(); 
             }
             else {
+                console.log(`${config.api.address}`);
                 throw new Error(`Invalid Username or Password`);
             }
             })
     }
 
     async editBasicUserRemove(token, id, jsonData) {
-        return fetch(`/users/${id}`, {
+        return fetch(`${url}/users/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -165,7 +174,7 @@ class API {
     }
     
     async authUser(credentials) {
-        return fetch('/auth', {
+        return fetch(`${url}/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -183,7 +192,7 @@ class API {
     }
 
     async createUser(credentials) {
-        return fetch('/users', {
+        return fetch(`${url}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -194,7 +203,7 @@ class API {
     }
 
     async editBasicUser(token, id, jsonData) {
-        return fetch(`/users/${id}`, {
+        return fetch(`${url}/users/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -205,7 +214,17 @@ class API {
     }
 
     async deleteUser(token, id) {
-        return fetch(`/users/${id}`, {
+        return fetch(`${url}/users/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+    }
+
+    async deleteUserByEmail(token, email) {
+        return fetch(`${url}/users/email/${email}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -218,7 +237,7 @@ class API {
         let id;
         
         try {
-            await fetch(`/venues`, { 
+            await fetch(`${url}/venues`, { 
         
             method: 'POST', 
             headers: {
