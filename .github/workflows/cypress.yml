@@ -11,9 +11,3 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm start
-      - name: Upload screenshots
-        uses: actions/upload-artifact@latest
-        if: failure()
-        with:
-            name: cypress-snapshots
-            path: cypress/snapshots
