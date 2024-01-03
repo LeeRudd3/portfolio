@@ -106,6 +106,8 @@ describe('Create Listings', () => {
 
         cy.get(`[data-testid="loginBtn"]`).click();
 
+        cy.contains('h1', "Music Venues").should('exist');
+
         createNewListing(testData);
 
         cy.contains('p', testData.name).should('exist');
