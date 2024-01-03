@@ -103,7 +103,7 @@ describe('Create Listings', () => {
 
         cy.get(`[data-testid="email"]`).should('be.visible').type(testUser.email).should('have.value', testUser.email);
         cy.get(`[data-testid="password"]`).should('be.visible').type(testUser.password).should('have.value', testUser.password);
-
+        
         cy.get(`[data-testid="loginBtn"]`).should('be.visible').click();
 
         cy.contains('h1', "Music Venues", { timeout: 10000 }).should('exist');
