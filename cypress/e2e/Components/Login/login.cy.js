@@ -33,7 +33,7 @@ describe('Login', () => {
             email: testData.email,
             password: btoa(testData.password)
         }
-        api.createUser(createData);
+        await api.createUser(createData);
     
     })
 

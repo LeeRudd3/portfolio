@@ -93,7 +93,7 @@ describe('Create Listings', () => {
             email: testUser.email,
             password: btoa(testUser.password)
         }
-        api.createUser(createUser);
+        await api.createUser(createUser);
     
     })
 
