@@ -130,35 +130,48 @@ const Venue = ({ showVenue }) => {
         <EditVenuePopup data={selectedItem} onClose={handleClosePopup} getTableData={getTableData} />
       )}
 
-      <div style={{display: 'flex',  justifyContent:'right', alignItems:'right'}}>
-        <ReactPaginate
-              onPageChange={paginate}
-              pageCount={Math.ceil(data.length / postsPerPage)}
-              previousLabel={'Prev'}
-              nextLabel={'Next'}
-              containerClassName={'pagination'}
-              pageLinkClassName={'page-number'}
-              previousLinkClassName={'page-number'}
-              nextLinkClassName={'page-number'}
-              activeLinkClassName={'active'}
-            />
-      </div>
+      <table className='buttontable'>
+        <tbody>
+          <tr>
+            <td className='buttontd'>
+              <div>
+                <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)} data-testid="createVenue">Create Venue</button>
+                <CreateNewVenue onClose={handleClosePopup} showCreateVenue={showCreateVenue} updateTableData={updateTableData}/>
+                {deleteButtonVisible && (
+                  <button className="button" onClick={handleItemsShowSelected} data-testid="deleteVenue">Delete Venues</button>
+                )}
+                
+                {popupVisible && (
+                  <DeleteListingPopup
+                    data={selectedItems}
+                    onClose={handleItemsClosePopup}
+                    getTableData={getTableData}
+                  />
+                )}
+              </div>
+            </td>
+            <td className='buttontd'>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                <ReactPaginate
+                      onPageChange={paginate}
+                      pageCount={Math.ceil(data.length / postsPerPage)}
+                      previousLabel={'Prev'}
+                      nextLabel={'Next'}
+                      containerClassName={'pagination'}
+                      pageLinkClassName={'page-number'}
+                      previousLinkClassName={'page-number'}
+                      nextLinkClassName={'page-number'}
+                      activeLinkClassName={'active'}
+                    />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-      <div>
-        <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)} data-testid="createVenue">Create Venue</button>
-        <CreateNewVenue onClose={handleClosePopup} showCreateVenue={showCreateVenue} updateTableData={updateTableData}/>
-        {deleteButtonVisible && (
-          <button className="button" onClick={handleItemsShowSelected}>Delete Venues</button>
-        )}
-        
-        {popupVisible && (
-          <DeleteListingPopup
-            data={selectedItems}
-            onClose={handleItemsClosePopup}
-            getTableData={getTableData}
-          />
-        )}
-      </div>
+      
+
+      
     </div>
     
   );

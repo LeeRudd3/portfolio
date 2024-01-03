@@ -45,10 +45,7 @@ describe('Login', () => {
         cy.get(`[data-testid="loginBtn"]`).should('exist');
         cy.get(`[data-testid="createBtn"]`).should('exist');
 
-        cy.get(`[data-testid="email"]`).type(testData.email).should('have.value', testData.email);
-        cy.get(`[data-testid="password"]`).type(testData.password).should('have.value', testData.password);
-
-        cy.get(`[data-testid="loginBtn"]`).click();
+        cy.login(testData.email, testData.password);
 
         cy.contains('h2', 'Navigation').should('exist');
 
@@ -59,6 +56,22 @@ describe('Login', () => {
                 cy.get('[data-testid="logoutBtn"]').click();
             }
         });
+    });
+
+    it('with invalid user', () => {
+        cy.visit('http://localhost:3000/dashboard');
+
+        cy.login("bob", testData.password);
+
+        cy.contains('p', 'Error: Invalid Username or Password').should('exist');
+    });
+
+    it('with invalid password', () => {
+        cy.visit('http://localhost:3000/dashboard');
+
+        cy.login(testData.email, "ttt");
+
+        cy.contains('p', 'Error: Invalid Username or Password').should('exist');
     });
 
 });

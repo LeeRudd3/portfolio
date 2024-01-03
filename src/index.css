@@ -285,3 +285,13 @@ header {
 main {
   margin-top: 20px;
 }
+
+/* Apply styles to remove table borders */
+.buttontable {
+	border-collapse: collapse;
+}
+
+.buttontd, .buttonth {
+	border: none;
+	padding: 8px;
+}

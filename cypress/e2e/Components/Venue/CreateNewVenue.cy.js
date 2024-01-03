@@ -1,7 +1,7 @@
 import API from '../../../../src/Components/App/API/API';
 const config = require('../../../../src/env.config');
 
-describe('Create Listings', () => {
+describe('Create Venues', () => {
     const testUser = {
         firstName: "test",
         lastName: "user",
@@ -28,47 +28,6 @@ describe('Create Listings', () => {
         city: "",
         state: ""
     };
-
-    const TestDataNoName = {
-        name: 'TestDataNoName',
-        summary: 'Cypress Test',
-        bedrooms: '2',
-        bathrooms: '3'
-    };
-
-    function setListingData(data) {
-        if(data.name != ''){
-            cy.get(`[name='venueName']`).type(data["name"]).should('have.value', data["name"]);
-        }
-        if(data.summary != ''){
-            cy.get(`[name='venueSummary']`).type(data["summary"]).should('have.value', data["summary"]);
-        }
-        if(data.type != '') {
-            cy.get(`[name='venueType']`).type(data.type).should('have.value', data.type);
-        }
-        if(data.address1 != '') {
-            cy.get(`[name='venueAddress1']`).type(data.address1).should('have.value', data.address1);
-        }
-        if(data.address2 != '') {
-            cy.get(`[name='venueAddress2']`).type(data.address2).should('have.value', data.address2);
-        }
-        if(data.city != '') {
-            cy.get(`[name='venueCity']`).type(data.city).should('have.value', data.city);
-        }
-        if(data.state != '') {
-            cy.get(`[name='venueState']`).type(data.state).should('have.value', data.state);
-        }
-    }
-
-    function createNewListing(data) {
-        cy.get('[data-testid="createVenue"]').should('be.visible').click();
-
-        cy.get(`[name='Create']`).should('be.visible');
-
-        setListingData(data);
-
-        cy.get(`[name='addBtn']`).click();
-    }
 
     before(async () => {
         const api = new API();
@@ -97,34 +56,26 @@ describe('Create Listings', () => {
     
     })
 
-    it('Creates Listing', () => {
+    it('Creates a venue', () => {
 
         cy.visit('http://localhost:3000/Dashboard');
 
-        cy.get(`[data-testid="email"]`).should('be.visible').type(testUser.email).should('have.value', testUser.email);
-        cy.get(`[data-testid="password"]`).should('be.visible').type(testUser.password).should('have.value', testUser.password);
+        cy.login(testUser.email, testUser.password);
 
-        cy.get(`[data-testid="loginBtn"]`).should('be.visible').click();
+        cy.contains('h1', "Music Venues").should('exist');
 
-        cy.get('body').invoke('html').then((val) => console.log(JSON.stringify(val)));
-
-        cy.contains('h1', "Music Venues", { timeout: 10000 }).should('exist');
-
-        createNewListing(testData);
+        cy.createNewVenue(testData);
 
         cy.contains('p', testData.name).should('exist');
     });
 
-    it('Creates Listing with only name', () => {
+    it('Creates a venue with only a name', () => {
 
         cy.visit('http://localhost:3000/Dashboard');
 
-        cy.get(`[data-testid="email"]`).type(testUser.email).should('have.value', testUser.email);
-        cy.get(`[data-testid="password"]`).type(testUser.password).should('have.value', testUser.password);
+        cy.login(testUser.email, testUser.password);
 
-        cy.get(`[data-testid="loginBtn"]`).click();
-
-        createNewListing(TestDataOnlyName);
+        cy.createNewVenue(TestDataOnlyName);
 
         cy.contains('p', TestDataOnlyName.name).should('exist');
         cy.get('table tr:first-child td:first-child')
