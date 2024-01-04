@@ -1,20 +1,6 @@
-let address;
+const config = require('../../../env.config');
 
-// Proplem: React requires the env.config file to be in the src directory.  Render requires the env.config
-// file to be in the root.  Guess there is a possible work around to get react to accept an item outside of
-// the src, but will take some time.
-// Current Solution: Since the only real item needed for this is the address, I am going with the temporary
-// solution of trying to read the config, if I get a fail, just use a hardcoded address.
-try {
-    const config = require('../../../env.config');
-    address = config.api.address;
-}
-catch (error) {
-    address = 'https://leeruddportfolioapi.onrender.com';
-}
-
-
-const url = address;
+const url = config.api.address;
 
 class API {   
 
@@ -170,7 +156,7 @@ class API {
                 return response.json(); 
             }
             else {
-                console.log(`${address}`);
+                console.log(`${config.api.address}`);
                 throw new Error(`Invalid Username or Password`);
             }
             })
