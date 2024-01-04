@@ -147,6 +147,8 @@ describe('Deletes Venue', () => {
         // Click Confirm to delete venue
         cy.get(`[data-testid="confirmBtn"]`).should('exist').click();
 
+        cy.contains('h2', "Delete Venue?").should('not.exist');
+
         // Verify venue is removed
         cy.get(`[data-testid='${testDataOne._id}checkBox']`).should('not.exist'); 
         cy.get(`[data-testid='${testDataTwo._id}checkBox']`).should('not.exist'); 
