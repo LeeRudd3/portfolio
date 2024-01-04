@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
     "cors": "^2.8.5",
@@ -23,7 +28,6 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://leeruddportfolioapi.onrender.com/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -49,6 +53,7 @@
   "devDependencies": {
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.2",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-react": "^7.22.15",
     "@playwright/test": "^1.39.0",

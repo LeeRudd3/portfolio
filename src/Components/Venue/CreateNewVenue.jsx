@@ -191,8 +191,8 @@ export default function CreateNewVenue({ onClose, showCreateVenue, updateTableDa
               error="" />
           </div>
           <div className='model-footer'>
-            <button onClick={handleAction} className="button" name='addBtn'>Add Venue</button>
-            <button className='button' onClick={handleOnClose}>Close</button>
+            <button onClick={handleAction} className="button" name='addBtn' data-testid="addBtn">Add Venue</button>
+            <button className='button' onClick={handleOnClose} data-testid="closeBtn">Close</button>
           </div>
         </div>
       </div>

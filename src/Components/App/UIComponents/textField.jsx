@@ -18,6 +18,7 @@ export default function TextField({ title, placeHolder, name, inputValue, handle
                     onChange={handleInputChange}
                     placeholder={placeHolder}
                     name={name}
+                    data-testid={name}
                 />
                 </td>
             </tr>

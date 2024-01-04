@@ -38,7 +38,6 @@ const ChangePassword = (props) => {
     const handleOnClick = async() => {
         //If we make a change, we set this to true
         let needToEdit=false;
-        
         //Set up data to send
         let jsonData = {};
         
@@ -98,8 +97,8 @@ const ChangePassword = (props) => {
                     <p>{`${validation}`}</p>
                 </div>
                 <div className='model-footer'>
-                    <button onClick={handleOnClick} className="button" name='changeBtn'>Change Password</button>
-                    <button className='button' onClick={handleOnCancel}>Cancel</button>
+                    <button onClick={handleOnClick} className="button" name='changeBtn' data-testid='changeBtn'>Change Password</button>
+                    <button className='button' onClick={handleOnCancel} data-testid='cancelBtn'>Cancel</button>
                 </div>
             </div>
         </div>

@@ -18,3 +18,10 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+// Setup code to run before each test
+Cypress.on('fail', (err, runnable) => {
+    // always print the full page DOM whenever an error occurs
+    console.log(Cypress.$('body').html())
+    // re-throw error so test still fails
+    throw err
+})

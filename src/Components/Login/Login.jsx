@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import CreateNewUser from '../User/CreateUser';
 import API from '../App/API/API'
-import './Login.css';
 
 const Login = ({settoken}) => {
     const [username, setusername] = useState();
@@ -40,17 +39,17 @@ const Login = ({settoken}) => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <h2>UserName </h2>
-                    <input type="text" onChange={e => setusername(e.target.value)} className="textbox" required placeholder='JohnDoe'/>
+                    <input type="text" onChange={e => setusername(e.target.value)} className="textbox" required placeholder='JohnDoe' data-testid="email"/>
                 </div>
                 <div>
                     <h2>Password </h2>
-                    <input type="password" onChange={e => setpassword(e.target.value)} className="textbox" required placeholder='Please enter a strong password'/>
+                    <input type="password" onChange={e => setpassword(e.target.value)} className="textbox" required placeholder='Please enter password' data-testid="password"/>
                 </div>
                 <div>
-                    <p></p><button type="submit" className='button'>Submit</button>
+                    <p></p><button type="submit" className='button' data-testid="loginBtn">Submit</button>
                 </div>
             </form>
-            <button className="button" id="createBtn" onClick={() => setShowCreateUser(true)}>New User? Click here to create an account</button>
+            <button className="button" id="createBtn" onClick={() => setShowCreateUser(true)} data-testid="createBtn">New User? Click here to create an account</button>
             <CreateNewUser onClose={handleClosePopup} showCreateUser={showCreateUser}/>
         </div>
     </div>

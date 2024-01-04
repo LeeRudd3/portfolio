@@ -123,7 +123,7 @@ ul {
 .pagination .page-number {
 	font-size: 16px;
 	font-weight: 600;
-	color: #00a8ff;
+	color: #007bff;
 	background: #fff;
 	padding: 10px 20px;
 	border-radius: 10px;
@@ -133,16 +133,16 @@ ul {
 
 .pagination .page-number:hover {
 	color: #fff;
-	background: #00a8ff;
+	background: #007bff;
 }
 
 .pagination .active {
 	color: #fff;
-	background: #00a8ff;
+	background: #007bff;
 }
 
 .pagination .active:hover {
-	color: #00a8ff;
+	color: #007bff;
 	background: #fff;
 }
 
@@ -284,4 +284,14 @@ header {
 
 main {
   margin-top: 20px;
+}
+
+/* Apply styles to remove table borders */
+.buttontable {
+	border-collapse: collapse;
+}
+
+.buttontd, .buttonth {
+	border: none;
+	padding: 8px;
 }

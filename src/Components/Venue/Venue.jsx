@@ -5,7 +5,6 @@ import DeleteListingPopup from './DeleteVenuePopup';
 import SearchVenue from './SearchVenue';
 import ReactPaginate from 'react-paginate';
 import API from '../App/API/API';
-import './Venue.css';
 
 const Venue = ({ showVenue }) => {
   const [data, setData] = useState([]);
@@ -22,7 +21,7 @@ const Venue = ({ showVenue }) => {
   useEffect(() => {
     async function getData() {
       const res = await api.getAllVenues();
-     setData(res);
+      setData(res);
     }
     getData();
   }, []);
@@ -43,6 +42,7 @@ const Venue = ({ showVenue }) => {
     setData(await api.getAllVenues());
 
     setDeleteButtonVisible(false);
+    
   }
 
   const updateTableData = async newListing => {
@@ -107,20 +107,21 @@ const Venue = ({ showVenue }) => {
         </thead>
         <tbody>
           {currentPosts.map((item) => (
-            <tr key={item._id} id={item._id}>
+            <tr key={item._id} id={item._id} data-testid={item._id}>
               <td>
                 <input
                   type="checkbox"
                   checked={selectedItems.includes(item._id)}
                   onChange={() => handleItemsClick(item._id)}
+                  data-testid={`${item._id}checkBox`}
                 />
               </td>
               <td onClick={() => handleItemClick(item)}>
-                <p className="link-like" itemname={item.name}>{item.name}</p>
+                <p className="link-like" itemname={item.name} data-testid={`${item._id}name`}>{item.name}</p>
               </td>
-              <td name='Summary'>{item.summary}</td>
-              <td name='Type'>{item.type}</td>
-              <td name='Location'>{`${item.city}, ${item.state}`}</td>
+              <td name='Summary' data-testid={`${item._id}summary`} data-testname={`${item.name}`}>{item.summary}</td>
+              <td name='Type' data-testid={`${item._id}type`}>{item.type}</td>
+              <td name='Location' data-testid={`${item._id}location`}>{`${item.city}, ${item.state}`}</td>
             </tr>
           ))}
         </tbody>
@@ -129,35 +130,44 @@ const Venue = ({ showVenue }) => {
         <EditVenuePopup data={selectedItem} onClose={handleClosePopup} getTableData={getTableData} />
       )}
 
-      <div style={{display: 'flex',  justifyContent:'right', alignItems:'right'}}>
-        <ReactPaginate
-              onPageChange={paginate}
-              pageCount={Math.ceil(data.length / postsPerPage)}
-              previousLabel={'Prev'}
-              nextLabel={'Next'}
-              containerClassName={'pagination'}
-              pageLinkClassName={'page-number'}
-              previousLinkClassName={'page-number'}
-              nextLinkClassName={'page-number'}
-              activeLinkClassName={'active'}
-            />
-      </div>
-
-      <div>
-        <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)}>Create Venue</button>
-        <CreateNewVenue onClose={handleClosePopup} showCreateVenue={showCreateVenue} updateTableData={updateTableData}/>
-        {deleteButtonVisible && (
-          <button className="button" onClick={handleItemsShowSelected}>Delete Venues</button>
-        )}
-        
-        {popupVisible && (
-          <DeleteListingPopup
-            data={selectedItems}
-            onClose={handleItemsClosePopup}
-            getTableData={getTableData}
-          />
-        )}
-      </div>
+      <table className='buttontable'>
+        <tbody>
+          <tr>
+            <td className='buttontd'>
+              <div>
+                <button className="button" id="createBtn" onClick={() => setShowCreateVenue(true)} data-testid="createVenue">Create Venue</button>
+                <CreateNewVenue onClose={handleClosePopup} showCreateVenue={showCreateVenue} updateTableData={updateTableData}/>
+                {deleteButtonVisible && (
+                  <button className="button" onClick={handleItemsShowSelected} data-testid="deleteVenue">Delete Venues</button>
+                )}
+                
+                {popupVisible && (
+                  <DeleteListingPopup
+                    data={selectedItems}
+                    onClose={handleItemsClosePopup}
+                    getTableData={getTableData}
+                  />
+                )}
+              </div>
+            </td>
+            <td className='buttontd'>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                <ReactPaginate
+                      onPageChange={paginate}
+                      pageCount={Math.ceil(data.length / postsPerPage)}
+                      previousLabel={'Prev'}
+                      nextLabel={'Next'}
+                      containerClassName={'pagination'}
+                      pageLinkClassName={'page-number'}
+                      previousLinkClassName={'page-number'}
+                      nextLinkClassName={'page-number'}
+                      activeLinkClassName={'active'}
+                    />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     
   );

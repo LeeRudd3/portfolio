@@ -3,9 +3,12 @@ import TextField from '../App/UIComponents/textField.jsx';
 import API from '../App/API/API.js';
 
 const EditUser = (props) => {
-    const [backupEmailValue, setbackupEmailValue] = useState();
-    const [backupFirstNameValue, setbackupFirstNameValue] = useState();
-    const [backupLastNameValue, setbackupLastNameValue] = useState();
+    const [backupEmailValue, setbackupEmailValue] = useState(props.email);
+    const [backupFirstNameValue, setbackupFirstNameValue] = useState(props.firstName);
+    const [backupLastNameValue, setbackupLastNameValue] = useState(props.lastName);
+    const [inputEmailValue, setInputEmailValue] = useState(props.email);
+    const [inputFirstValue, setInputFirstValue] = useState(props.firstName);
+    const [inputLastValue, setInputLastValue] = useState(props.lastName);
 
     const api = new API();
     
@@ -13,6 +16,7 @@ const EditUser = (props) => {
         return null;
     }
 
+    /*
     if(typeof backupEmailValue === 'undefined'){
         setbackupEmailValue(props.email);
     }
@@ -24,17 +28,21 @@ const EditUser = (props) => {
     if(typeof backupLastNameValue === 'undefined'){
         setbackupLastNameValue(props.lastName);
     }
+    */
 
     const handleInputEmailChange = (event) => {
-        props.setEmail(event.target.value);
+        //props.setEmail(event.target.value);
+        setInputEmailValue(event.target.value);
     };
 
     const handleInputFirstNameChange = (event) => {
-        props.setFirstName(event.target.value);
+        //props.setFirstName(event.target.value);
+        setInputFirstValue(event.target.value);
     };
 
     const handleInputLastNameChange = (event) => {
-        props.setLastName(event.target.value);
+        //props.setLastName(event.target.value);
+        setInputLastValue(event.target.value);
     };
 
     const handleOnClose = () => {
@@ -49,24 +57,28 @@ const EditUser = (props) => {
     }
 
     const handleOnClick = () => {
+        
         //If we make a change, we set this to true
         let needToEdit=false;
         
         //Set up data to send
         let jsonData = {};
         
-        if(backupEmailValue !== props.email){
-            jsonData.email = `${props.email}`;
+        if(backupEmailValue !== inputEmailValue){
+            props.setEmail(inputEmailValue);
+            jsonData.email = `${inputEmailValue}`;
             needToEdit=true;
         }
 
-        if(backupFirstNameValue !== props.firstName){
-            jsonData.firstName = `${props.firstName}`;
+        if(backupFirstNameValue !== inputFirstValue){
+            props.setFirstName(inputFirstValue);
+            jsonData.firstName = `${inputFirstValue}`;
             needToEdit=true;
         }
 
-        if(backupLastNameValue !== props.lastName){
-            jsonData.lastName = `${props.lastName}`;
+        if(backupLastNameValue !== inputLastValue){
+            props.setLastName(inputLastValue);
+            jsonData.lastName = `${inputLastValue}`;
             needToEdit=true;
         }
 
@@ -87,26 +99,26 @@ const EditUser = (props) => {
                 <div className='model-body'>
                     <TextField title="Email"
                             name="email"
-                            inputValue={props.email}
+                            inputValue={inputEmailValue}
                             handleInputChange={handleInputEmailChange} 
                             validate={false}
                             error="" />
                     <TextField title="First Name"
                         name="firstName"
-                        inputValue={props.firstName}
+                        inputValue={inputFirstValue}
                         handleInputChange={handleInputFirstNameChange} 
                         validate={false}
                         error="" />
                     <TextField title="Last Name"
                         name="lastName"
-                        inputValue={props.lastName}
+                        inputValue={inputLastValue}
                         handleInputChange={handleInputLastNameChange} 
                         validate={false}
                         error="" />
                 </div>
                 <div className='model-footer'>
-                    <button onClick={handleOnClick} className="button" name='editBtn'>Edit User</button>
-                    <button className='button' onClick={handleOnCancel}>Cancel</button>
+                    <button onClick={handleOnClick} className="button" name='editBtn' data-testid='editBtn'>Edit User</button>
+                    <button className='button' onClick={handleOnCancel} data-testid='cancelBtn'>Cancel</button>
                 </div>
             </div>
         </div>

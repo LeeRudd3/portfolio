@@ -20,6 +20,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
   const [inputLastValue, setInputLastValue] = useState('');
   const [inputPasswordValue, setInputPasswordValue] = useState('');
   const [inputVerifyPasswordValue, setInputVerifyPasswordValue] = useState('');
+  const [validationMSG, setValidationMSG] = useState('');
 
   const api = new API();
 
@@ -56,26 +57,17 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
 
   const handleAction = () => {
     let noErrors = true
-    
-    /*
-    if(validate(inputNameValue)) {
-      setValidateName(true);
-      noErrors = false;
-    }
-    if(!isFloat(`${inputBedroomValue}`)) {
-      setValidateBedroom(true);
+
+    if(inputPasswordValue !== inputVerifyPasswordValue) {
+      setValidationMSG('Passwords do not match');
       noErrors = false;
     }
 
-    if(!isFloat(`${inputBathroomValue}`)) {
-      setValidateBathroom(true);
-      noErrors = false;
-    }
-    
-    if(noErrors) {*/
+    if(noErrors) {
       createNewUser();
       // Close the pop-up
       onClose();
+    }
     //}
   };
 
@@ -101,7 +93,9 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
   }
 
   const createNewUser = async () => {
+    
     try {
+      setValidationMSG('');
       let jsonData = {
         firstName: `${inputFirstValue}`,
         lastName: `${inputLastValue}`,
@@ -113,6 +107,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
 
     } catch (error) {
       console.error('Error in creating user', error);
+      setValidationMSG('Error in creating user');
     }
   };
 
@@ -123,6 +118,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
             <h2 className='model-title'>Create New User</h2>
           </div>
           <div className='model-body'>
+            {validationMSG}
             <TextField title="User Name"
                 placeHolder="Enter Email"
                 name="userName"
@@ -152,7 +148,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
                 validate={false}
                 error="" />
             <PasswordTextField title="Reenter Password"
-                placeHolder="Enter Password"
+                placeHolder="Reenter Password"
                 name="reenterPassword"
                 inputValue={inputVerifyPasswordValue}
                 handleInputChange={handleInputVerifyPasswordChange} 

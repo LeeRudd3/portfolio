@@ -45,6 +45,7 @@ const DeleteUser = (props) => {
         if(needToEdit) {
             api.deleteUser(props.token, props.id);
             settoken(null);
+            props.onClose();
             navigate('/');
         }
 
@@ -69,8 +70,8 @@ const DeleteUser = (props) => {
                     <p>{`${validation}`}</p>
                 </div>
                 <div className='model-footer'>
-                    <button onClick={handleOnClick} className="button" name='deleteBtn'>Delete Me</button>
-                    <button className='button' onClick={handleOnCancel}>Cancel</button>
+                    <button onClick={handleOnClick} className="button" name='deleteBtn'  data-testid='deleteBtn'>Delete Me</button>
+                    <button className='button' onClick={handleOnCancel} data-testid='cancelBtn'>Cancel</button>
                 </div>
             </div>
         </div>

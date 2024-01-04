@@ -1,54 +1,36 @@
-import React, { useState, useEffect, Component } from 'react';
-import useToken from './App/useToken';
+import React, { useState, useEffect } from 'react';
+//import useToken from './App/useToken';
 import EditUser from './User/EditUser';
 import ChangePassword from './User/ChangePassword';
 import DeleteUser from './User/DeleteUser';
 import Logout from './Login/Logout';
+import API from './App/API/API';
 
-import { useNavigate } from 'react-router-dom';
-
-async function getData(token) {
-  const response = await fetch(`/users/byemail/${token.email}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token.token}`
-    }
-  });
-  return await response.json();
-}
-
-const Profile = ( { showProfile }) => {
-  const {token, settoken }= useToken();
+const Profile = ( { showProfile, token }) => {
   const [inputIDValue, setInputIDValue] = useState('');
   const [inputEmailValue, setInputEmailValue] = useState('');
   const [inputFirstValue, setInputFirstValue] = useState('');
   const [inputLastValue, setInputLastValue] = useState('');
-  const navigate = useNavigate();
   const [showEditUser, setShowEditUser] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showDeleteUser, setShowDeleteUser] = useState(false);
 
+  
+
   useEffect(() => {
-    async function getData2() {
-      const res = await getData(token);
+    async function getData() {
+      const api = new API();
+      const res = await api.getUserByEmail(token.email, token);
       setInputIDValue(res._id);
       setInputEmailValue(res.email);
       setInputFirstValue(res.firstName);
       setInputLastValue(res.lastName);
     }
-    if(token){
-      getData2();
-    }
+    getData();
   }, []);
 
   if (!showProfile) {
     return null;
-  }
-
-  const handleLogOut = () => {
-    settoken(null);
-    navigate('/');
   }
 
   const handleClosePopup = () => {
@@ -59,20 +41,19 @@ const Profile = ( { showProfile }) => {
 
   return (
     <div>
-      <h1>User Profile for {inputIDValue}</h1>
       <table>
         <tbody>
           <tr>
-            <td>Username</td>
-            <td>{inputEmailValue}</td>
+            <td data-testid="titleemail">Username</td>
+            <td data-testid="email">{inputEmailValue}</td>
           </tr>
           <tr>
             <td>First Name</td>
-            <td>{inputFirstValue}</td>
+            <td data-testid="firstName">{inputFirstValue}</td>
           </tr>
           <tr>
             <td>Last Name</td>
-            <td>{inputLastValue}</td>
+            <td data-testid="lastName">{inputLastValue}</td>
           </tr>
         </tbody>
       </table>

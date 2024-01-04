@@ -13,7 +13,7 @@ const Logout = () => {
 
       return (
         <div>
-            <button className="button" id="logoutBtn" onClick={() => handleLogOut()}>Logout</button>
+            <button className="button" id="logoutBtn" data-testid="logoutBtn" onClick={() => handleLogOut()}>Logout</button>
     </div>
     
   )

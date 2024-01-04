@@ -18,6 +18,7 @@ export default function PasswordTextField({ title, placeHolder, name, inputValue
                     onChange={handleInputChange}
                     placeholder={placeHolder}
                     name={name}
+                    data-testid={name}
                 />
                 </td>
             </tr>

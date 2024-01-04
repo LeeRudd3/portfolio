@@ -14,8 +14,10 @@ function DeleteVenuePopup({ data, onClose, getTableData }) {
 
   const deleteVenue = async () => {
     try {
-      api.delete(data);
+      console.log(`The Data is ${data}`);
+      await api.delete(data);
       getTableData();
+
     } catch (error) {
       console.error('Error in deleting venue', error);
     }
@@ -38,8 +40,8 @@ function DeleteVenuePopup({ data, onClose, getTableData }) {
             </div>
           </div>
           <div className='model-footer'>
-            <button onClick={handleAction} className="button">Confirm</button>
-            <button className='button' onClick={onClose}>Cancel</button>
+            <button onClick={handleAction} className="button" data-testid="confirmBtn">Confirm</button>
+            <button className='button' onClick={onClose} data-testid="cancelBtn">Cancel</button>
           </div>
         </div>
       </div>
