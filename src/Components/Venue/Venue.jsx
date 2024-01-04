@@ -119,7 +119,7 @@ const Venue = ({ showVenue }) => {
               <td onClick={() => handleItemClick(item)}>
                 <p className="link-like" itemname={item.name} data-testid={`${item._id}name`}>{item.name}</p>
               </td>
-              <td name='Summary' data-testid={`${item._id}summary`}>{item.summary}</td>
+              <td name='Summary' data-testid={`${item._id}summary`} data-testname={`${item.name}`}>{item.summary}</td>
               <td name='Type' data-testid={`${item._id}type`}>{item.type}</td>
               <td name='Location' data-testid={`${item._id}location`}>{`${item.city}, ${item.state}`}</td>
             </tr>
@@ -168,10 +168,6 @@ const Venue = ({ showVenue }) => {
           </tr>
         </tbody>
       </table>
-
-      
-
-      
     </div>
     
   );

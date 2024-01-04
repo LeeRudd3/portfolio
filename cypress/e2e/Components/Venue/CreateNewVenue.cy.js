@@ -29,8 +29,10 @@ describe('Create Venues', () => {
         state: ""
     };
 
+    const api = new API();
+
     before(async () => {
-        const api = new API();
+        
         //await api.deleteVenueByName(testData.name);
         await api.deleteVenueByListofNames([testData.name, TestDataOnlyName.name]);
 
@@ -78,7 +80,7 @@ describe('Create Venues', () => {
         cy.createNewVenue(TestDataOnlyName);
 
         cy.contains('p', TestDataOnlyName.name).should('exist');
-        cy.get('table tr:first-child td:first-child')
+        cy.get(`[data-testname='${TestDataOnlyName.name}']`)
             .invoke('text')
             .should('be.empty');
     });
