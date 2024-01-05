@@ -7,7 +7,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - run: echo '${{ secrets.ENV }}' > .env
-      - run: echo '${{ secrets.CYPRESS }}' > cypress.config.js
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:

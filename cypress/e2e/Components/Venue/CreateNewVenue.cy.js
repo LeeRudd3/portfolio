@@ -1,4 +1,5 @@
 import API from '../../../../src/Components/App/API/API';
+const config = require('../../../../env.config');
 
 describe('Create Venues', () => {
     const testUser = {
@@ -28,7 +29,7 @@ describe('Create Venues', () => {
         state: ""
     };
 
-    const api = new API(Cypress.env('api'));
+    const api = new API(config.api);
 
     before(async () => {
         
@@ -39,8 +40,8 @@ describe('Create Venues', () => {
         const token = await api.login({
             //email: config.cypress.admin,
             //password: btoa(config.cypress.password)
-            email: `${Cypress.env('adminUsername')}`,
-            password: btoa(`${Cypress.env('adminPassword')}`)
+            email: `${config.cypress.username}`,
+            password: btoa(`${config.cypress.password}`)
         });
 
         // Now we make sure we have a valid user to log in with
