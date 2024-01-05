@@ -14,10 +14,10 @@ function DeleteVenuePopup({ data, onClose, getTableData, setData }) {
 
   const deleteVenue = async () => {
     try {
-      console.log(`The Data is ${data}`);
       await api.delete(data);
-      //getTableData();
-      setData(await api.getAllVenues());
+      
+      const res = await api.getAllVenues();
+      setData(res);
 
     } catch (error) {
       console.error('Error in deleting venue', error);

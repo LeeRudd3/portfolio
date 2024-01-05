@@ -11,6 +11,7 @@ describe('DeleteVenuePopup', () => {
 
     // Mock the API.edit method
     API.prototype.delete = jest.fn().mockResolvedValue(true);
+    API.prototype.getAllVenues = jest.fn().mockResolvedValue();
 
     const getTableData = jest.fn();
     const onClose = jest.fn();

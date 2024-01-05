@@ -14,7 +14,6 @@ const Login = ({settoken}) => {
         let token;
         try{
             e.preventDefault();
-            console.log(`API URL At Login Page is ${process.env.REACT_APP_API_URL}`);
             token = await api.login({
                 email: username,
                 password: btoa(password)

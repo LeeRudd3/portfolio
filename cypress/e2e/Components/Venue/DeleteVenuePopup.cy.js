@@ -147,6 +147,11 @@ describe('Deletes Venue', () => {
         cy.contains('h2', "Delete Venue?").should('exist');
 
         cy.intercept({
+            method: 'DELETE',
+            url: '/venues',
+        }).as('deleteCheck');
+        
+        cy.intercept({
             method: 'GET',
             url: '/getvenues/all',
         }).as('getVenuesAllCheck');
@@ -154,19 +159,18 @@ describe('Deletes Venue', () => {
         // Click Confirm to delete venue
         cy.get(`[data-testid="confirmBtn"]`).should('exist').click();
 
-        
+        cy.wait(['@getVenuesAllCheck', '@deleteCheck']);
 
-        cy.wait('@getVenuesAllCheck').then((interception) => {
 
-            cy.contains('h2', "Delete Venue?").should('not.exist');
+        cy.contains('h2', "Delete Venue?").should('not.exist');
 
-            // Verify venue is removed
-            cy.get(`[data-testid='${testDataOne._id}checkBox']`).should('not.exist'); 
-            cy.get(`[data-testid='${testDataTwo._id}checkBox']`).should('not.exist'); 
-            cy.get(`[data-testid='${testDataThree._id}checkBox']`).should('not.exist'); 
-            // Here verify that the Delete button is not showing
-            cy.get(`[data-testid="deleteVenue"]`).should('not.exist');   
-        });    
+        // Verify venue is removed
+        cy.get(`[data-testid='${testDataOne._id}checkBox']`).should('not.exist'); 
+        cy.get(`[data-testid='${testDataTwo._id}checkBox']`).should('not.exist'); 
+        cy.get(`[data-testid='${testDataThree._id}checkBox']`).should('not.exist'); 
+        // Here verify that the Delete button is not showing
+        cy.get(`[data-testid="deleteVenue"]`).should('not.exist');   
+           
     });
 
   })
