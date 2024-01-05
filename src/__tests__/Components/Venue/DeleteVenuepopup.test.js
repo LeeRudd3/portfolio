@@ -14,6 +14,7 @@ describe('DeleteVenuePopup', () => {
 
     const getTableData = jest.fn();
     const onClose = jest.fn();
+    const setData = jest.fn();
 
     const { getByText, getByPlaceholderText, getByDisplayValue } = render(
       //<EditListingPopup data={mockData} getTableData={getTableData} onClose={onClose} />
@@ -21,6 +22,7 @@ describe('DeleteVenuePopup', () => {
             data={mockData}
             onClose={onClose}
             getTableData={getTableData}
+            setData={setData}
           />
     );
 
@@ -39,7 +41,7 @@ describe('DeleteVenuePopup', () => {
     expect(API.prototype.delete).toHaveBeenCalledWith(mockData);
 
     // Verify that the getTableData and onClose functions were called
-    expect(getTableData).toHaveBeenCalled();
+    expect(setData).toHaveBeenCalled();
     expect(onClose).toHaveBeenCalled();
   });
 });
