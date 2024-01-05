@@ -14,7 +14,7 @@ const Venue = ({ showVenue }) => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-	const [postsPerPage] = useState(10);
+	const [postsPerPage] = useState(100);
 
   const api = new API(process.env.REACT_APP_API_URL);
 

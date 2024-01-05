@@ -49,10 +49,26 @@ describe('Deletes Venue', () => {
         state: "OR"
     };
 
+    const testDataLogOut = {
+        name: "Cypress Test LogOut",
+        summary: "Test to make sure that venues are deleted correctly",
+        type: "Band",
+        address1: "101 main st",
+        address2: "suite 101",
+        city: "Portland",
+        state: "OR"
+    };
+
     before(async () => {
         const api = new API(config.api);
         //await api.deleteVenueByName(testData.name);
-        await api.deleteVenueByListofNames([testData.name, testDataOne.name, testDataTwo.name, testDataThree.name]);
+        await api.deleteVenueByListofNames([
+            testData.name, 
+            testDataOne.name, 
+            testDataTwo.name, 
+            testDataThree.name, 
+            testDataLogOut.name
+        ]);
 
         // Here we get token 
         const token = await api.login({
@@ -171,6 +187,56 @@ describe('Deletes Venue', () => {
         // Here verify that the Delete button is not showing
         cy.get(`[data-testid="deleteVenue"]`).should('not.exist');   
            
+    });
+
+    it.only('Creates Listing, logs out, then deletes the listing', () => {
+
+        cy.visit('http://localhost:3000/Dashboard');
+
+        cy.login(testUser.email, testUser.password);
+
+        cy.contains('h1', "Music Venues").should('exist');
+
+        // Here we create the venue
+        cy.createNewVenue(testDataLogOut);
+
+        // Now we view the venue to get the id
+        
+        cy.get(`[itemname='${testDataLogOut.name}']`).should('exist').click();
+        cy.get('#venueidtxt').then(($span) => {
+            // Get the text content of the span and save it to a variable
+            cy.log(`${$span.text()}`);
+            testDataLogOut._id = $span.text();
+            cy.log(`${testDataLogOut._id}`);
+
+            cy.logout();
+            cy.visit('http://localhost:3000/Dashboard');
+
+            cy.login(testUser.email, testUser.password);
+
+            // Here we check the venue to delete
+            cy.get(`[data-testid='${testDataLogOut._id}checkBox']`).should('exist').check();
+
+            // Verify popup is not up
+            cy.contains('h2', "Delete Venue?").should('not.exist');
+
+            // Verify delete button is now shown and click it
+            cy.get(`[data-testid="deleteVenue"]`).should('exist').click();
+
+            // Verify popup is shown
+            cy.contains('h2', "Delete Venue?").should('exist');
+
+            // Click Confirm to delete venue
+            cy.get(`[data-testid="confirmBtn"]`).should('exist').click();
+
+            // Verify venue is removed
+            cy.get(`[data-testid='${testDataLogOut._id}checkBox']`).should('not.exist'); 
+            // Here verify that the Delete button is not showing
+            cy.get(`[data-testid="deleteVenue"]`).should('not.exist'); 
+        });
+
+        
+        
     });
 
   })

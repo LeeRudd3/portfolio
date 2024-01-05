@@ -31,6 +31,15 @@ Cypress.Commands.addAll({
 
         cy.get(`[data-testid="loginBtn"]`).should('be.visible').click();
     },
+    logout() {
+        // Check if the logout button exists
+        cy.get('[data-testid="logoutBtn"]').should('exist').then(($button) => {
+            // If the button exists, click it
+            if ($button.length > 0) {
+                cy.get('[data-testid="logoutBtn"]').click();
+            }
+        });
+    },
     setVenueData(data) {
         if(data.name != ''){
             cy.get(`[name='venueName']`).type(data.name).should('have.value', data.name);
