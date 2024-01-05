@@ -1,8 +1,8 @@
 import React from 'react';
 import API from '../App/API/API';
 
-function DeleteVenuePopup({ data, onClose, getTableData }) {
-  const api = new API();
+function DeleteVenuePopup({ data, onClose, getTableData, setData }) {
+  const api = new API(process.env.REACT_APP_API_URL);
   
   const handleAction = () => {
     deleteVenue();
@@ -16,7 +16,8 @@ function DeleteVenuePopup({ data, onClose, getTableData }) {
     try {
       console.log(`The Data is ${data}`);
       await api.delete(data);
-      getTableData();
+      //getTableData();
+      setData(await api.getAllVenues());
 
     } catch (error) {
       console.error('Error in deleting venue', error);

@@ -8,7 +8,7 @@ const ChangePassword = (props) => {
     const [retype, setRetype] = useState('');
     const [validation, setValidation] = useState('');
 
-    const api = new API();
+    const api = new API(process.env.REACT_APP_API_URL);
     
     if (!props.showChangePassword) {
         return null;

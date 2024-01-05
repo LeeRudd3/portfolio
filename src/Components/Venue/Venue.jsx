@@ -16,7 +16,7 @@ const Venue = ({ showVenue }) => {
   const [currentPage, setCurrentPage] = useState(1);
 	const [postsPerPage] = useState(10);
 
-  const api = new API();
+  const api = new API(process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     async function getData() {
@@ -146,6 +146,7 @@ const Venue = ({ showVenue }) => {
                     data={selectedItems}
                     onClose={handleItemsClosePopup}
                     getTableData={getTableData}
+                    setData={setData}
                   />
                 )}
               </div>

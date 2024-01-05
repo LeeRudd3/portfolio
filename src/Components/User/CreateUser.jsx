@@ -22,7 +22,7 @@ export default function CreateNewUser({ onClose, showCreateUser }) {
   const [inputVerifyPasswordValue, setInputVerifyPasswordValue] = useState('');
   const [validationMSG, setValidationMSG] = useState('');
 
-  const api = new API();
+  const api = new API(process.env.REACT_APP_API_URL);
 
   if (!showCreateUser) {
     return null;

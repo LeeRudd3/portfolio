@@ -90,7 +90,7 @@ export default function EditVenuePopup({ data, onClose, getTableData }) {
         city: `${venueCity}`,
         state: `${venueState}`
       }
-      const api = new API();
+      const api = new API(process.env.REACT_APP_API_URL);
       const update = await api.edit(venueID, jsonData);
       
       if(update === true) {

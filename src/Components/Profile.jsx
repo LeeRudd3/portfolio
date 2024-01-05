@@ -19,7 +19,7 @@ const Profile = ( { showProfile, token }) => {
 
   useEffect(() => {
     async function getData() {
-      const api = new API();
+      const api = new API(process.env.REACT_APP_API_URL);
       const res = await api.getUserByEmail(token.email, token);
       setInputIDValue(res._id);
       setInputEmailValue(res.email);

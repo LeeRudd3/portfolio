@@ -1,5 +1,5 @@
 import API from '../../../../src/Components/App/API/API';
-const config = require('../../../../src/env.config');
+const config = require('../../../../env.config');
 
 describe('Deletes Venue', () => {
     const testUser = {
@@ -50,14 +50,16 @@ describe('Deletes Venue', () => {
     };
 
     before(async () => {
-        const api = new API();
+        const api = new API(config.api);
         //await api.deleteVenueByName(testData.name);
         await api.deleteVenueByListofNames([testData.name, testDataOne.name, testDataTwo.name, testDataThree.name]);
 
         // Here we get token 
         const token = await api.login({
-            email: config.cypress.admin,
-            password: btoa(config.cypress.password)
+            //email: config.cypress.admin,
+            //password: btoa(config.cypress.password)
+            email: `${config.cypress.username}`,
+            password: btoa(`${config.cypress.password}`)
         });
 
         // Now we make sure we have a valid user to log in with
@@ -144,17 +146,27 @@ describe('Deletes Venue', () => {
         // Verify popup is shown
         cy.contains('h2', "Delete Venue?").should('exist');
 
+        cy.intercept({
+            method: 'GET',
+            url: '/getvenues/all',
+        }).as('getVenuesAllCheck');
+
         // Click Confirm to delete venue
         cy.get(`[data-testid="confirmBtn"]`).should('exist').click();
 
-        cy.contains('h2', "Delete Venue?").should('not.exist');
+        
 
-        // Verify venue is removed
-        cy.get(`[data-testid='${testDataOne._id}checkBox']`).should('not.exist'); 
-        cy.get(`[data-testid='${testDataTwo._id}checkBox']`).should('not.exist'); 
-        cy.get(`[data-testid='${testDataThree._id}checkBox']`).should('not.exist'); 
-        // Here verify that the Delete button is not showing
-        cy.get(`[data-testid="deleteVenue"]`).should('not.exist');       
+        cy.wait('@getVenuesAllCheck').then((interception) => {
+
+            cy.contains('h2', "Delete Venue?").should('not.exist');
+
+            // Verify venue is removed
+            cy.get(`[data-testid='${testDataOne._id}checkBox']`).should('not.exist'); 
+            cy.get(`[data-testid='${testDataTwo._id}checkBox']`).should('not.exist'); 
+            cy.get(`[data-testid='${testDataThree._id}checkBox']`).should('not.exist'); 
+            // Here verify that the Delete button is not showing
+            cy.get(`[data-testid="deleteVenue"]`).should('not.exist');   
+        });    
     });
 
   })

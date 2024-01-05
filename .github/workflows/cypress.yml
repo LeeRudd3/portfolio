@@ -6,7 +6,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - run: echo '${{ secrets.CONFIG }}' > src/env.config.js
+      - run: echo '${{ secrets.ENV }}' > .env
+      - run: echo '${{ secrets.CONFIG }}' > env.config.js
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
