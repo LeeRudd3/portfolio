@@ -146,6 +146,7 @@ const Venue = ({ showVenue }) => {
                     data={selectedItems}
                     onClose={handleItemsClosePopup}
                     getTableData={getTableData}
+                    setData={setData}
                   />
                 )}
               </div>
