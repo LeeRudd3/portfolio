@@ -18,6 +18,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: echo '${{ secrets.ENV }}' > .env
-    - run: echo '${{ secrets.CYPRESS }}' > cypress.config.js
+    - run: echo '${{ secrets.CONFIG }}' > env.config.js
     - run: yarn install
     - run: yarn test
