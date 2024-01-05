@@ -1,5 +1,4 @@
 import API from '../../../../src/Components/App/API/API';
-const config = require('../../../../src/env.config');
 
 describe('Login', () => {
 
@@ -12,13 +11,15 @@ describe('Login', () => {
 
     before(async () => {
         
-        const api = new API();
+        const api = new API(Cypress.env('api'));
         
         // Here we get token 
         // NEED TO PUT CREDITIALS INTO CONFIG BEFORE CHECK IN!!!!!!!!
         const token = await api.login({
-            email: config.cypress.admin,
-            password: btoa(config.cypress.password)
+            //email: config.cypress.admin,
+            //password: btoa(config.cypress.password)
+            email: `${Cypress.env('adminUsername')}`,
+            password: btoa(`${Cypress.env('adminPassword')}`)
         });
 
         // Now we make sure we have a valid user to log in with

@@ -3,7 +3,7 @@ import API from '../App/API/API.js';
 import TextField from '../App/UIComponents/textField.jsx'
 
 export default function CreateNewVenue({ onClose, showCreateVenue, updateTableData }) {
-  const api = new API();
+  const api = new API(process.env.REACT_APP_API_URL);
   const [inputNameValue, setInputNameValue] = useState('');
   const [inputSummaryValue, setInputSummaryValue] = useState('');
   const [inputTypeValue, setInputTypeValue] = useState('');

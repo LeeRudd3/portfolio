@@ -27,3 +27,5 @@ yarn-error.log*
 /blob-report/
 /playwright/.cache/
 /src/env.config.*
+.env
+cypress.config.js

@@ -6,7 +6,7 @@ export default function SearchVenue({ setTableData }) {
     const [searchValue, setSearchValue] = useState("");
     const [clearButtonVisible, setClearButtonVisible] = useState(false);
 
-    const api = new API();
+    const api = new API(process.env.REACT_APP_API_URL);
 
     const handleSearchChagne = (event) => {
         setSearchValue(event.target.value);

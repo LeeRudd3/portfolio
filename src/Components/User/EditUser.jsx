@@ -10,7 +10,7 @@ const EditUser = (props) => {
     const [inputFirstValue, setInputFirstValue] = useState(props.firstName);
     const [inputLastValue, setInputLastValue] = useState(props.lastName);
 
-    const api = new API();
+    const api = new API(process.env.REACT_APP_API_URL);
     
     if (!props.showEditUser) {
         return null;

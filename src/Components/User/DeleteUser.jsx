@@ -10,7 +10,7 @@ const DeleteUser = (props) => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [validation, setValidation] = useState('');
 
-    const api = new API();
+    const api = new API(process.env.REACT_APP_API_URL);
     
     if (!props.showDeleteUser) {
         return null;

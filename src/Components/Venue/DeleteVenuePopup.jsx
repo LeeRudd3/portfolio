@@ -2,7 +2,7 @@ import React from 'react';
 import API from '../App/API/API';
 
 function DeleteVenuePopup({ data, onClose, getTableData }) {
-  const api = new API();
+  const api = new API(process.env.REACT_APP_API_URL);
   
   const handleAction = () => {
     deleteVenue();

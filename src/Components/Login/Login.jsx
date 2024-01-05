@@ -8,12 +8,13 @@ const Login = ({settoken}) => {
     const [password, setpassword] = useState();
     const [showCreateUser, setShowCreateUser] = useState(false);
     const [validation, setValidation] = useState('');
-    const api = new API();
+    const api = new API(`${process.env.REACT_APP_API_URL}`);
 
     const handleSubmit = async e => {
         let token;
         try{
             e.preventDefault();
+            console.log(`API URL At Login Page is ${process.env.REACT_APP_API_URL}`);
             token = await api.login({
                 email: username,
                 password: btoa(password)
